@@ -1,0 +1,62 @@
+{
+  "name": "grow-and-steal-mystic-garden",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "Shared": {
+        "$path": "src/shared"
+      },
+      "Remotes": {
+        "$className": "Folder",
+        "$properties": {
+          "Name": "Remotes"
+        }
+      }
+    },
+    "ServerScriptService": {
+      "$className": "ServerScriptService",
+      "Server": {
+        "$path": "src/server"
+      }
+    },
+    "StarterPlayer": {
+      "$className": "StarterPlayer",
+      "StarterPlayerScripts": {
+        "$className": "StarterPlayerScripts",
+        "Client": {
+          "$path": "src/client"
+        }
+      }
+    },
+    "Workspace": {
+      "$className": "Workspace",
+      "$properties": {
+        "FilteringEnabled": true,
+        "StreamingEnabled": true,
+        "StreamingTargetRadius": 350,
+        "StreamingMinRadius": 150
+      },
+      "Plots": {
+        "$className": "Folder",
+        "$properties": {
+          "Name": "Plots"
+        }
+      },
+      "Lobby": {
+        "$className": "Folder",
+        "$properties": {
+          "Name": "Lobby"
+        }
+      }
+    },
+    "Lighting": {
+      "$className": "Lighting",
+      "$properties": {
+        "Ambient": [0.5, 0.5, 0.5],
+        "Brightness": 2,
+        "ClockTime": 14
+      }
+    }
+  }
+}

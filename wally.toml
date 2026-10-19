@@ -1,0 +1,20 @@
+[package]
+name = "crux-ops/grow-and-steal"
+version = "1.0.0"
+registry = "https://github.com/UpliftGames/wally-index"
+realm = "shared"
+license = "MIT"
+description = "Grow & Steal: Mystic Garden Tycoon - Full System"
+
+[dependencies]
+ProfileStore = "madstudio/profilestore@0.2.0"
+Janitor = "howmanysmall/janitor@1.14.1"
+Signal = "stravant/goodsignal@1.6.0"
+Promise = "evaera/promise@4.0.0"
+Fusion = "elttob/fusion@0.3.0"
+
+[server-dependencies]
+Cmdr = "evaera/cmdr@1.13.2"
+
+[dev-dependencies]
+TestEZ = "roblox/testez@0.4.1"
