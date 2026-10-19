@@ -1,0 +1,3699 @@
+<?xml version='1.0' encoding='utf-8'?>
+<roblox version="4">
+  <External>null</External>
+  <External>nil</External>
+  <Item class="ReplicatedStorage" referent="RBX1">
+    <Properties>
+      <string name="Name">ReplicatedStorage</string>
+    </Properties>
+    <Item class="Folder" referent="RBX2">
+      <Properties>
+        <string name="Name">Shared</string>
+      </Properties>
+      <Item class="Folder" referent="RBX3">
+        <Properties>
+          <string name="Name">Config</string>
+        </Properties>
+        <Item class="ModuleScript" referent="RBX4">
+          <Properties>
+            <string name="Name">AntiCheatConfig</string>
+            <ProtectedString name="Source">--!strict
+return table.freeze({
+	RemoteFolder = "GardenRemotes",
+	HandshakeRemote = "ClientReady",
+	ActionRemote = "GardenAction",
+	StateRemote = "GardenState",
+	NoticeRemote = "GardenNotice",
+	BucketCapacity = 12,
+	RefillPerSecond = 4,
+	MaxStringLength = 96,
+	EvidenceLimit = 200,
+})
+</ProtectedString>
+          </Properties>
+        </Item>
+        <Item class="ModuleScript" referent="RBX5">
+          <Properties>
+            <string name="Name">EconomyConfig</string>
+            <ProtectedString name="Source">--!strict
+return table.freeze({
+	StartingCoins = 100,
+	MaxCurrency = 999999999,
+	MaxInventory = 500,
+	LedgerSize = 100,
+	Slots = 8,
+	PlotCount = 30,
+	PlotSpacing = 65,
+	PlotColumns = 6,
+	InteractionDistance = 30,
+	NightCycle = 1800,
+	NightDuration = 300,
+	StealCooldown = 60,
+	ShieldDuration = 600,
+	ShieldPrice = 250,
+	FusionCost = 100,
+	MutationMultiplier = 2,
+	DailyCoins = { 50, 100, 150, 200, 250, 300, 500 },
+	QuestHarvest = 10,
+	QuestSteal = 2,
+	QuestFuse = 1,
+	QuestCoins = 150,
+	QuestGems = 5,
+	QuestXP = 100,
+	HarvestXP = 10,
+	StealXP = 20,
+	SnapshotInterval = 1,
+	AutosaveInterval = 60,
+	EnableSteal = false,
+})
+</ProtectedString>
+          </Properties>
+        </Item>
+        <Item class="ModuleScript" referent="RBX6">
+          <Properties>
+            <string name="Name">MonetizationConfig</string>
+            <ProtectedString name="Source">--!strict
+-- Real Creator Dashboard IDs must be supplied before enabling paid purchases.
+-- Empty catalog deliberately disables purchase prompts, never simulates a grant.
+return table.freeze({ Enabled = false })
+</ProtectedString>
+          </Properties>
+        </Item>
+        <Item class="ModuleScript" referent="RBX7">
+          <Properties>
+            <string name="Name">MovementConfig</string>
+            <ProtectedString name="Source">--!strict
+return table.freeze({ MaxHorizontalSpeed = 32, Tolerance = 12, MaxSampleGap = 5 })
+</ProtectedString>
+          </Properties>
+        </Item>
+        <Item class="ModuleScript" referent="RBX8">
+          <Properties>
+            <string name="Name">PlantConfig</string>
+            <ProtectedString name="Source">--!strict
+local Types = require(script.Parent.Parent.Types)
+type PlantDefinition = Types.PlantDefinition
+local plants: { [string]: PlantDefinition } = {}
+local function define(id: string, name: string, rarity: string, price: number, growth: number, value: number, color: Color3): ()
+	plants[id] = table.freeze({ Id = id, Name = name, Rarity = rarity, Price = price, GrowthTime = growth, SellValue = value, Color = color })
+end
+
+define("sprout", "Happy Sprout", "Common", 10, 10, 15, Color3.fromRGB(100, 220, 100))
+define("carrot", "Dancing Carrot", "Common", 25, 30, 40, Color3.fromRGB(255, 150, 40))
+define("mushroom", "Sleepy Mushroom", "Common", 50, 60, 85, Color3.fromRGB(220, 100, 90))
+define("cactus", "Disco Cactus", "Uncommon", 100, 90, 180, Color3.fromRGB(40, 180, 120))
+define("moonflower", "Moon Flower", "Uncommon", 200, 120, 380, Color3.fromRGB(150, 160, 255))
+define("crystal", "Crystal Bloom", "Rare", 500, 180, 1000, Color3.fromRGB(80, 230, 250))
+define("dragon", "Dragon Fruit", "Rare", 1000, 240, 2100, Color3.fromRGB(240, 80, 180))
+define("phoenix", "Phoenix Fern", "Legendary", 2500, 360, 5500, Color3.fromRGB(255, 190, 50))
+define("nebula", "Nebula Lotus", "Mythical", 10000, 600, 23000, Color3.fromRGB(160, 80, 240))
+define("brainbloom", "Brain Bloom", "BrainrotSecret", 50000, 1200, 120000, Color3.fromRGB(255, 100, 200))
+return table.freeze(plants)
+</ProtectedString>
+          </Properties>
+        </Item>
+        <Item class="ModuleScript" referent="RBX9">
+          <Properties>
+            <string name="Name">SeasonConfig</string>
+            <ProtectedString name="Source">--!strict
+return table.freeze({
+	Epoch = 1792368000,
+	Duration = 30 * 86400,
+	Tiers = 50,
+	XPPerTier = 100,
+	FreeCoinsPerTier = 50,
+})
+</ProtectedString>
+          </Properties>
+        </Item>
+      </Item>
+      <Item class="ModuleScript" referent="RBX10">
+        <Properties>
+          <string name="Name">Constants</string>
+          <ProtectedString name="Source">--!strict
+return table.freeze({ ProtocolVersion = 1, GameTitle = "Grow &amp; Steal: Mystic Garden Tycoon" })
+</ProtectedString>
+        </Properties>
+      </Item>
+      <Item class="Folder" referent="RBX11">
+        <Properties>
+          <string name="Name">Modules</string>
+        </Properties>
+        <Item class="ModuleScript" referent="RBX12">
+          <Properties>
+            <string name="Name">Comm</string>
+            <ProtectedString name="Source">--!strict
+-- Purpose: server-created allowlisted traffic; bounded string requests, server-only state.
+-- Dependencies: config, Janitor. Domain validators and mutation handlers must not yield.
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
+local Config = require(script.Parent.Parent.Config.AntiCheatConfig)
+local Janitor = require(script.Parent.Janitor)
+local TokenBucket = require(script.Parent.TokenBucket)
+type Bucket = TokenBucket.Bucket
+type Validator = (Player, unknown) -&gt; boolean
+type Handler = (Player, unknown) -&gt; ()
+local Comm = {}
+local function request(name: string): boolean
+	return name == Config.HandshakeRemote or name == Config.ActionRemote
+end
+local function outbound(name: string): boolean
+	return name == Config.StateRemote or name == Config.NoticeRemote
+end
+local function folder(): Folder
+	local existing = ReplicatedStorage:FindFirstChild(Config.RemoteFolder)
+	if existing then assert(existing:IsA("Folder"), "Remote folder collision") return existing end
+	assert(RunService:IsServer(), "Server must create remotes")
+	local result = Instance.new("Folder")
+	result.Name = Config.RemoteFolder
+	result.Parent = ReplicatedStorage
+	return result
+end
+function Comm.CreateOutbound(name: string): RemoteEvent
+	assert(RunService:IsServer() and outbound(name), "Invalid outbound remote")
+	local parent = folder()
+	assert(not parent:FindFirstChild(name), "Duplicate remote")
+	local remote = Instance.new("RemoteEvent")
+	remote.Name = name
+	remote.Parent = parent
+	return remote
+end
+function Comm.Bind(name: string, validator: Validator, handler: Handler): Janitor.Janitor
+	assert(RunService:IsServer() and request(name), "Invalid request remote")
+	local parent = folder()
+	assert(not parent:FindFirstChild(name), "Duplicate binding")
+	local remote = Instance.new("RemoteEvent")
+	remote.Name = name
+	local cleanup = Janitor.new()
+	local buckets: { [Player]: Bucket } = {}
+	cleanup:Add(remote)
+	cleanup:Add(Players.PlayerRemoving:Connect(function(player: Player): () buckets[player] = nil end))
+	cleanup:Add(remote.OnServerEvent:Connect(function(player: Player, payload: unknown, ...: unknown): ()
+		local now = os.clock()
+		local bucket = buckets[player] or TokenBucket.New(Config.BucketCapacity, now)
+		buckets[player] = bucket
+		if not TokenBucket.Take(bucket, Config.BucketCapacity, Config.RefillPerSecond, now) then return end
+		if select("#", ...) ~= 0 or typeof(payload) ~= "string" or #payload &gt; Config.MaxStringLength then return end
+		local ok, message = pcall(function(): ()
+			if validator(player, payload) then handler(player, payload) end
+		end)
+		if not ok then warn("Remote handler error", name, message) end
+	end))
+	remote.Parent = parent
+	return cleanup
+end
+local function getRemote(name: string): RemoteEvent
+	local parent = ReplicatedStorage:WaitForChild(Config.RemoteFolder, 30)
+	assert(parent, "Remote folder timeout")
+	local remote = parent:WaitForChild(name, 30)
+	assert(remote and remote:IsA("RemoteEvent"), "Remote timeout")
+	return remote
+end
+function Comm.Send(name: string, payload: string): ()
+	assert(RunService:IsClient() and request(name), "Invalid client request")
+	assert(#payload &lt;= Config.MaxStringLength, "Payload too long")
+	getRemote(name):FireServer(payload)
+end
+function Comm.Listen(name: string, callback: (unknown) -&gt; ()): RBXScriptConnection
+	assert(RunService:IsClient() and outbound(name), "Invalid subscription")
+	return getRemote(name).OnClientEvent:Connect(callback)
+end
+return table.freeze(Comm)
+</ProtectedString>
+          </Properties>
+        </Item>
+        <Item class="ModuleScript" referent="RBX13">
+          <Properties>
+            <string name="Name">Janitor</string>
+            <ProtectedString name="Source">--!strict
+export type Task = RBXScriptConnection | Instance | (() -&gt; ())
+local Janitor = {}
+Janitor.__index = Janitor
+export type Janitor = typeof(setmetatable({} :: { _tasks: { Task } }, Janitor))
+function Janitor.new(): Janitor
+	return setmetatable({ _tasks = {} }, Janitor)
+end
+function Janitor.Add(self: Janitor, item: Task): Task
+	table.insert(self._tasks, item)
+	return item
+end
+function Janitor.Cleanup(self: Janitor): ()
+	local tasks = self._tasks
+	self._tasks = {}
+	for i = #tasks, 1, -1 do
+		local item = tasks[i]
+		local ok, message = pcall(function(): ()
+			if typeof(item) == "RBXScriptConnection" then item:Disconnect()
+			elseif typeof(item) == "Instance" then item:Destroy()
+			elseif type(item) == "function" then item() end
+		end)
+		if not ok then warn(message) end
+	end
+end
+Janitor.Destroy = Janitor.Cleanup
+return Janitor
+</ProtectedString>
+          </Properties>
+        </Item>
+        <Item class="ModuleScript" referent="RBX14">
+          <Properties>
+            <string name="Name">Signal</string>
+            <ProtectedString name="Source">--!strict
+-- Local, payload-free lifecycle signal. Connections are explicitly disposable.
+local Signal = {}
+Signal.__index = Signal
+export type Signal = typeof(setmetatable({} :: { _event: BindableEvent }, Signal))
+function Signal.new(): Signal
+	return setmetatable({ _event = Instance.new("BindableEvent") }, Signal)
+end
+function Signal.Connect(self: Signal, callback: () -&gt; ()): RBXScriptConnection
+	return self._event.Event:Connect(callback)
+end
+function Signal.Once(self: Signal, callback: () -&gt; ()): RBXScriptConnection
+	return self._event.Event:Once(callback)
+end
+function Signal.Fire(self: Signal): ()
+	self._event:Fire()
+end
+function Signal.Destroy(self: Signal): ()
+	self._event:Destroy()
+end
+return Signal
+</ProtectedString>
+          </Properties>
+        </Item>
+        <Item class="ModuleScript" referent="RBX15">
+          <Properties>
+            <string name="Name">TokenBucket</string>
+            <ProtectedString name="Source">--!strict
+-- Pure limiter; monotonic seconds are supplied by the server, never by clients.
+export type Bucket = { Tokens: number, At: number }
+local Bucket = {}
+function Bucket.New(capacity: number, now: number): Bucket
+	return { Tokens = capacity, At = now }
+end
+function Bucket.Take(bucket: Bucket, capacity: number, refill: number, now: number): boolean
+	bucket.Tokens = math.min(capacity, bucket.Tokens + math.max(0, now - bucket.At) * refill)
+	bucket.At = math.max(bucket.At, now)
+	if bucket.Tokens &lt; 1 then return false end
+	bucket.Tokens -= 1
+	return true
+end
+return Bucket
+</ProtectedString>
+          </Properties>
+        </Item>
+      </Item>
+      <Item class="ModuleScript" referent="RBX16">
+        <Properties>
+          <string name="Name">Types</string>
+          <ProtectedString name="Source">--!strict
+export type PlantDefinition = {
+	Id: string,
+	Name: string,
+	Rarity: string,
+	Price: number,
+	GrowthTime: number,
+	SellValue: number,
+	Color: Color3,
+}
+return table.freeze({})
+</ProtectedString>
+        </Properties>
+        <Item class="ModuleScript" referent="RBX17">
+          <Properties>
+            <string name="Name">PlayerData</string>
+            <ProtectedString name="Source">--!strict
+export type Crop = { Id: string, PlantId: string, Mutant: boolean }
+export type Growing = { PlantId: string, PlantedAt: number }
+export type Entry = { At: number, Amount: number, Reason: string, Balance: number }
+export type Data = {
+	Version: number, Coins: number, Gems: number,
+	Seeds: { [string]: number }, Crops: { Crop }, Slots: { [string]: Growing },
+	Collection: { [string]: boolean }, CollectionRewards: { [string]: boolean },
+	LastSeen: number, LastDaily: number, Streak: number,
+	QuestDay: number, Quests: { [string]: number }, QuestClaims: { [string]: boolean },
+	SeasonId: number, XP: number, SeasonClaims: { [string]: boolean },
+	ShieldUntil: number, LastSteal: number,
+	Harvests: number, Steals: number, Fusions: number,
+	Ledger: { Entry }, TutorialDone: boolean,
+}
+return {}
+</ProtectedString>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+  </Item>
+  <Item class="ServerScriptService" referent="RBX18">
+    <Properties>
+      <string name="Name">ServerScriptService</string>
+    </Properties>
+    <Item class="Folder" referent="RBX19">
+      <Properties>
+        <string name="Name">Server</string>
+      </Properties>
+      <Item class="Folder" referent="RBX20">
+        <Properties>
+          <string name="Name">AntiCheat</string>
+        </Properties>
+        <Item class="ModuleScript" referent="RBX21">
+          <Properties>
+            <string name="Name">EvidenceLocker</string>
+            <ProtectedString name="Source">--!strict
+-- Bounded session-local diagnostic evidence, never automatic proof of guilt.
+local Config = require(game:GetService("ReplicatedStorage").Shared.Config.AntiCheatConfig)
+type Entry = { At: number, Reason: string }
+local records: { [Player]: { Entry } } = {}
+local Evidence = {}
+function Evidence.Flag(player: Player, reason: string): ()
+	local entries = records[player] or {}
+	records[player] = entries
+	table.insert(entries, { At = os.time(), Reason = string.sub(reason, 1, 128) })
+	if #entries &gt; Config.EvidenceLimit then table.remove(entries, 1) end
+end
+function Evidence.Get(player: Player): { Entry } return table.clone(records[player] or {}) end
+function Evidence.Release(player: Player): () records[player] = nil end
+return Evidence
+</ProtectedString>
+          </Properties>
+        </Item>
+        <Item class="ModuleScript" referent="RBX22">
+          <Properties>
+            <string name="Name">MovementValidator</string>
+            <ProtectedString name="Source">--!strict
+-- Conservative horizontal speed fallback. Not a complete flight/noclip detector.
+-- Server teleports explicitly reset samples; flags alone never trigger bans.
+local Config = require(game:GetService("ReplicatedStorage").Shared.Config.MovementConfig)
+local Evidence = require(script.Parent.EvidenceLocker)
+type Sample = { Character: Model, Frame: CFrame, At: number }
+local samples: { [Player]: Sample } = {}
+local Movement = {}
+function Movement.Authorize(player: Player): ()
+	local character = player.Character
+	local root = if character then character:FindFirstChild("HumanoidRootPart") else nil
+	if character and root and root:IsA("BasePart") then
+		samples[player] = { Character = character, Frame = root.CFrame, At = os.clock() }
+	end
+end
+function Movement.Check(player: Player): ()
+	local character = player.Character
+	local root = if character then character:FindFirstChild("HumanoidRootPart") else nil
+	if not character or not root or not root:IsA("BasePart") then samples[player] = nil return end
+	local previous = samples[player]
+	local now = os.clock()
+	if not previous or previous.Character ~= character or now - previous.At &gt; Config.MaxSampleGap then Movement.Authorize(player) return end
+	local delta = root.Position - previous.Frame.Position
+	local distance = Vector2.new(delta.X, delta.Z).Magnitude
+	if distance &gt; Config.MaxHorizontalSpeed * (now - previous.At) + Config.Tolerance then
+		Evidence.Flag(player, "Horizontal displacement exceeded fallback envelope")
+		root.CFrame = previous.Frame
+		root.AssemblyLinearVelocity = Vector3.zero
+	end
+	samples[player] = { Character = character, Frame = root.CFrame, At = now }
+end
+function Movement.Release(player: Player): () samples[player] = nil end
+return Movement
+</ProtectedString>
+          </Properties>
+        </Item>
+        <Item class="ModuleScript" referent="RBX23">
+          <Properties>
+            <string name="Name">RemoteValidator</string>
+            <ProtectedString name="Source">--!strict
+-- Exact command grammar, bounded by Comm before split. No arbitrary client tables.
+local Validator = {}
+local arities: { [string]: number } = {
+	Claim = 1, Go = 1, Buy = 2, Plant = 3, Harvest = 2, Sell = 2,
+	Fuse = 2, Daily = 1, Quest = 2, Season = 2, Tutorial = 1,
+}
+function Validator.Parse(payload: string): { string }?
+	if not string.match(payload, "^[%w_:%-]+$") then return nil end
+	local parts = string.split(payload, ":")
+	if arities[parts[1]] ~= #parts then return nil end
+	for _, item in parts do if #item == 0 then return nil end end
+	return parts
+end
+function Validator.Integer(value: string): number?
+	if not string.match(value, "^%d+$") or #value &gt; 6 then return nil end
+	local number = tonumber(value)
+	if not number or number % 1 ~= 0 then return nil end
+	return number
+end
+return Validator
+</ProtectedString>
+          </Properties>
+        </Item>
+      </Item>
+      <Item class="Folder" referent="RBX24">
+        <Properties>
+          <string name="Name">Remotes</string>
+        </Properties>
+      </Item>
+      <Item class="Script" referent="RBX25">
+        <Properties>
+          <string name="Name">ServerMain</string>
+          <ProtectedString name="Source">--!strict
+-- Purpose: lifecycle, validated command dispatch and private state replication.
+-- Dependencies: services, Comm, Janitor. Remotes: ClientReady/GardenAction -&gt; state/notice.
+-- Security: data readiness gate; no yielding mutation, no client currency or reward inputs.
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Shared = ReplicatedStorage:WaitForChild("Shared")
+local Comm = require(Shared.Modules.Comm)
+local Janitor = require(Shared.Modules.Janitor)
+local Constants = require(Shared.Constants)
+local RemoteConfig = require(Shared.Config.AntiCheatConfig)
+local Config = require(Shared.Config.EconomyConfig)
+local SeasonConfig = require(Shared.Config.SeasonConfig)
+local Data = require(script.Parent.Services.DataService)
+local Economy = require(script.Parent.Services.EconomyService)
+local Plot = require(script.Parent.Services.PlotService)
+local Plant = require(script.Parent.Services.PlantService)
+local Fusion = require(script.Parent.Services.FusionService)
+local Quest = require(script.Parent.Services.QuestService)
+local Season = require(script.Parent.Services.SeasonPassService)
+local World = require(script.Parent.Services.WorldService)
+local Analytics = require(script.Parent.Services.AnalyticsService)
+local Validator = require(script.Parent.AntiCheat.RemoteValidator)
+local Evidence = require(script.Parent.AntiCheat.EvidenceLocker)
+local state = Comm.CreateOutbound(RemoteConfig.StateRemote)
+local notice = Comm.CreateOutbound(RemoteConfig.NoticeRemote)
+local cleanup = Janitor.new()
+local playerCleanups: { [Player]: Janitor.Janitor } = {}
+local joined: { [Player]: number } = {}
+local Movement = require(script.Parent.AntiCheat.MovementValidator)
+local closing = false
+Plot.Init()
+local function go(player: Player): (boolean, string)
+	local id = Plot.Id(player)
+	local character = player.Character
+	if not id or not character then return false, "Klaim petak dahulu." end
+	character:PivotTo(CFrame.new(Plot.Origin(id) + Vector3.new(0, 5, 19)))
+	Movement.Authorize(player)
+	return true, "Selamat datang di kebun Anda!"
+end
+local function dispatch(player: Player, parts: { string }): (boolean, string)
+	local action = parts[1]
+	if action == "Claim" then
+		if not Plot.Claim(player) then return false, "Semua petak penuh." end
+		return go(player)
+	elseif action == "Go" then return go(player)
+	elseif action == "Buy" then return Plant.Buy(player, parts[2])
+	elseif action == "Plant" then
+		local slot = Validator.Integer(parts[3])
+		if slot then return Plant.Plant(player, parts[2], slot) end
+	elseif action == "Harvest" then
+		local slot = Validator.Integer(parts[2])
+		if slot then return Plant.Harvest(player, slot) end
+	elseif action == "Sell" then return Plant.Sell(player, parts[2])
+	elseif action == "Fuse" then return Fusion.Fuse(player, parts[2])
+	elseif action == "Daily" then return Quest.Daily(player)
+	elseif action == "Quest" then return Quest.Claim(player, parts[2])
+	elseif action == "Season" then
+		local tier = Validator.Integer(parts[2])
+		if tier then return Season.Claim(player, tier) end
+	elseif action == "Tutorial" then
+		local data = Data.Get(player)
+		if data then data.TutorialDone = true return true, "Tutorial dilewati." end
+	end
+	return false, "Perintah tidak valid."
+end
+local handshakeBinding = Comm.Bind(RemoteConfig.HandshakeRemote, function(_player: Player, payload: unknown): boolean
+	return payload == tostring(Constants.ProtocolVersion)
+end, function(player: Player, _payload: unknown): () player:SetAttribute("GardenReady", true) end)
+cleanup:Add(function(): () handshakeBinding:Destroy() end)
+local actionBinding = Comm.Bind(RemoteConfig.ActionRemote, function(player: Player, payload: unknown): boolean
+	if not Data.Get(player) or typeof(payload) ~= "string" then return false end
+	Movement.Check(player)
+	if not Validator.Parse(payload) then Evidence.Flag(player, "Malformed action") return false end
+	return true
+end, function(player: Player, payload: unknown): ()
+	if typeof(payload) ~= "string" then return end
+	local parts = Validator.Parse(payload)
+	if not parts then return end
+	Season.Refresh(player)
+	local ok, message = dispatch(player, parts)
+	notice:FireClient(player, { Ok = ok, Message = message })
+	if ok then Analytics.Log(player, parts[1]) end
+end)
+cleanup:Add(function(): () actionBinding:Destroy() end)
+local function onAdded(player: Player): ()
+	if playerCleanups[player] then return end
+	local janitor = Janitor.new()
+	playerCleanups[player] = janitor
+	joined[player] = os.clock()
+	janitor:Add(player.CharacterAdded:Connect(function(character: Model): ()
+		local root = character:WaitForChild("HumanoidRootPart", 10)
+		if root and player.Parent == Players then go(player) end
+	end))
+	local ok, loaded = pcall(Data.Load, player)
+	if not ok then warn("Profile load failed", loaded) player:Kick("Data tidak bisa dimuat. Silakan masuk lagi.") return end
+	if not loaded or closing or player.Parent ~= Players then Data.Release(player) return end
+	Economy.InitDisplay(player)
+	Quest.Refresh(player)
+	Season.Refresh(player)
+	Analytics.Log(player, "Join")
+end
+cleanup:Add(Players.PlayerAdded:Connect(onAdded))
+cleanup:Add(Players.PlayerRemoving:Connect(function(player: Player): ()
+	Analytics.Log(player, "Leave", os.clock() - (joined[player] or os.clock()))
+	joined[player] = nil
+	Plot.Release(player)
+	Evidence.Release(player)
+	Movement.Release(player)
+	local janitor = playerCleanups[player]
+	playerCleanups[player] = nil
+	if janitor then janitor:Destroy() end
+	Data.Release(player)
+end))
+for _, player in Players:GetPlayers() do task.spawn(onAdded, player) end
+local updateTask = task.spawn(function(): ()
+	while not closing do
+		World.Update()
+		for _, player in Players:GetPlayers() do
+			Movement.Check(player)
+			local data = Data.Get(player)
+			if not data then continue end
+			Quest.Refresh(player)
+			Season.Refresh(player)
+			Plant.Render(player)
+			if player:GetAttribute("GardenReady") then
+				-- Explicit allowlist: never replicate ledger, session or other players' data.
+				state:FireClient(player, {
+					Persistent = player:GetAttribute("GardenPersistence") == true,
+					Coins = data.Coins, Gems = data.Gems, Seeds = data.Seeds, Crops = data.Crops,
+					Slots = data.Slots, Collection = data.Collection,
+					PlotId = Plot.Id(player), Night = World.IsNight(), Remaining = World.Remaining(),
+					Quests = data.Quests, QuestClaims = data.QuestClaims, XP = data.XP,
+					SeasonClaims = data.SeasonClaims, MaxTier = SeasonConfig.Tiers,
+					TutorialDone = data.TutorialDone, LastDaily = data.LastDaily, Streak = data.Streak,
+				})
+			end
+		end
+		task.wait(Config.SnapshotInterval)
+	end
+end)
+cleanup:Add(function(): () task.cancel(updateTask) end)
+game:BindToClose(function(): ()
+	closing = true
+	cleanup:Destroy()
+	for player, janitor in playerCleanups do janitor:Destroy() Data.Release(player) end
+end)
+print(Constants.GameTitle .. " | Garden server ready")
+</ProtectedString>
+          <bool name="Disabled">false</bool>
+        </Properties>
+      </Item>
+      <Item class="Folder" referent="RBX26">
+        <Properties>
+          <string name="Name">Services</string>
+        </Properties>
+        <Item class="ModuleScript" referent="RBX27">
+          <Properties>
+            <string name="Name">AnalyticsService</string>
+            <ProtectedString name="Source">--!strict
+-- Purpose: best-effort platform custom events; never blocks or grants gameplay rewards.
+-- Dependencies: Roblox AnalyticsService. Remotes: none. Security: server event names only.
+local Platform = game:GetService("AnalyticsService")
+local Analytics = {}
+local allowed: { [string]: boolean } = { Join = true, Leave = true, Buy = true, Plant = true, Harvest = true, Sell = true, Fuse = true, Daily = true, Quest = true, Season = true, Claim = true }
+function Analytics.Log(player: Player, event: string, value: number?): ()
+	if not allowed[event] then return end
+	task.spawn(function(): ()
+		local ok, message = pcall(function(): () Platform:LogCustomEvent(player, event, value or 1) end)
+		if not ok then warn("Analytics unavailable:", message) end
+	end)
+end
+return Analytics
+</ProtectedString>
+          </Properties>
+        </Item>
+        <Item class="ModuleScript" referent="RBX28">
+          <Properties>
+            <string name="Name">DataSchema</string>
+            <ProtectedString name="Source">--!strict
+-- Purpose: reject malformed or unknown-version saves without replacing player progress.
+-- Dependencies: shared configs. Remotes: none. Security: bounded nested structures and IDs.
+local Shared = game:GetService("ReplicatedStorage").Shared
+local Config = require(Shared.Config.EconomyConfig)
+local Plants = require(Shared.Config.PlantConfig)
+local SeasonConfig = require(Shared.Config.SeasonConfig)
+local Schema = {}
+local function integer(value: unknown, minimum: number, maximum: number): boolean
+	return type(value) == "number" and value == value and value % 1 == 0 and value &gt;= minimum and value &lt;= maximum
+end
+function Schema.Validate(value: unknown): boolean
+	if type(value) ~= "table" then return false end
+	-- Persisted tables have unknown shape; dynamic indexing is isolated to schema validation.
+	local data = value :: { [string]: any }
+	if data.Version ~= 1 or type(data.TutorialDone) ~= "boolean" then return false end
+	for _, key in { "Coins", "Gems", "XP", "Harvests", "Steals", "Fusions" } do
+		if not integer(data[key], 0, Config.MaxCurrency) then return false end
+	end
+	for _, key in { "LastSeen", "ShieldUntil", "LastSteal" } do
+		if not integer(data[key], 0, 9999999999) then return false end
+	end
+	for _, key in { "LastDaily", "QuestDay", "SeasonId" } do
+		if not integer(data[key], -1, 9999999) then return false end
+	end
+	if not integer(data.Streak, 0, #Config.DailyCoins) then return false end
+	for _, key in { "Seeds", "Crops", "Slots", "Collection", "CollectionRewards", "Quests", "QuestClaims", "SeasonClaims", "Ledger" } do
+		if type(data[key]) ~= "table" then return false end
+	end
+	local seedTotal = 0
+	for id, count in data.Seeds do
+		if type(id) ~= "string" or not Plants[id] or not integer(count, 0, Config.MaxInventory) then return false end
+		seedTotal += count
+	end
+	if seedTotal &gt; Config.MaxInventory then return false end
+	local cropCount = 0
+	local cropIds: { [string]: boolean } = {}
+	for index, crop in data.Crops do
+		cropCount += 1
+		if not integer(index, 1, #data.Crops) or type(crop) ~= "table" then return false end
+		if type(crop.Id) ~= "string" or #crop.Id &lt; 1 or #crop.Id &gt; 64 or cropIds[crop.Id] then return false end
+		if type(crop.PlantId) ~= "string" or not Plants[crop.PlantId] or type(crop.Mutant) ~= "boolean" then return false end
+		cropIds[crop.Id] = true
+	end
+	if cropCount ~= #data.Crops or cropCount &gt; Config.MaxInventory then return false end
+	for key, growing in data.Slots do
+		if type(key) ~= "string" then return false end
+		local slot = tonumber(key)
+		if not slot or not integer(slot, 1, Config.Slots) or tostring(slot) ~= key or type(growing) ~= "table" then return false end
+		if type(growing.PlantId) ~= "string" or not Plants[growing.PlantId] or not integer(growing.PlantedAt, 0, 9999999999) then return false end
+	end
+	for id, unlocked in data.Collection do
+		if type(id) ~= "string" or not Plants[id] or unlocked ~= true then return false end
+	end
+	for name, progress in data.Quests do
+		if name ~= "Harvest" and name ~= "Steal" and name ~= "Fuse" then return false end
+		if not integer(progress, 0, Config.MaxCurrency) then return false end
+	end
+	for name, claimed in data.QuestClaims do
+		if (name ~= "Harvest" and name ~= "Steal" and name ~= "Fuse") or claimed ~= true then return false end
+	end
+	for tier, claimed in data.SeasonClaims do
+		if type(tier) ~= "string" or not integer(tonumber(tier), 1, SeasonConfig.Tiers) or tostring(tonumber(tier)) ~= tier or claimed ~= true then return false end
+	end
+	for key, unlocked in data.CollectionRewards do
+		if type(key) ~= "string" or #key &gt; 64 or type(unlocked) ~= "boolean" then return false end
+	end
+	local ledgerCount = 0
+	for index, entry in data.Ledger do
+		ledgerCount += 1
+		if not integer(index, 1, #data.Ledger) or type(entry) ~= "table" then return false end
+		if not integer(entry.At, 0, 9999999999) or not integer(entry.Amount, -Config.MaxCurrency, Config.MaxCurrency) or not integer(entry.Balance, 0, Config.MaxCurrency) then return false end
+		if type(entry.Reason) ~= "string" or #entry.Reason &gt; 128 then return false end
+	end
+	return ledgerCount == #data.Ledger and ledgerCount &lt;= Config.LedgerSize
+end
+return Schema
+</ProtectedString>
+          </Properties>
+        </Item>
+        <Item class="ModuleScript" referent="RBX29">
+          <Properties>
+            <string name="Name">DataService</string>
+            <ProtectedString name="Source">--!strict
+-- Purpose: session-locked persistence. Dependencies: vendored ProfileStore, config.
+-- Remotes: none. Security: fail closed on load/schema failure; never reset corrupt saves.
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Config = require(ReplicatedStorage.Shared.Config.EconomyConfig)
+local Types = require(ReplicatedStorage.Shared.Types.PlayerData)
+type Data = Types.Data
+-- Upstream ProfileStore exposes a dynamic API; any is confined to this boundary.
+local ProfileStore: any = require(script.Parent.Parent.Vendor.ProfileStore)
+ProfileStore.SetConstant("AUTO_SAVE_PERIOD", Config.AutosaveInterval)
+local template: Data = {
+	Version = 1, Coins = Config.StartingCoins, Gems = 0, Seeds = {}, Crops = {}, Slots = {},
+	Collection = {}, CollectionRewards = {}, LastSeen = 0, LastDaily = -1, Streak = 0,
+	QuestDay = -1, Quests = {}, QuestClaims = {}, SeasonId = -1, XP = 0, SeasonClaims = {},
+	ShieldUntil = 0, LastSteal = 0, Harvests = 0, Steals = 0, Fusions = 0,
+	Ledger = {}, TutorialDone = false,
+}
+local Store = ProfileStore.New("MysticGarden_v1", template)
+local profiles: { [Player]: any } = {}
+local DataService = {}
+local Schema = require(script.Parent.DataSchema)
+function DataService.Load(player: Player): boolean
+	local profile = Store:StartSessionAsync(tostring(player.UserId), {
+		Cancel = function(): boolean return player.Parent ~= Players end,
+	})
+	if not profile then player:Kick("Data belum tersedia. Silakan masuk lagi.") return false end
+	profile:AddUserId(player.UserId)
+	profile:Reconcile()
+	if not Schema.Validate(profile.Data) then
+		profile:EndSession()
+		player:Kick("Data perlu diperiksa. Hubungi pengembang; data tidak direset.")
+		return false
+	end
+	profile.OnSessionEnd:Connect(function(): ()
+		profiles[player] = nil
+		if player.Parent == Players then player:Kick("Sesi data berakhir. Silakan masuk lagi.") end
+	end)
+	if player.Parent ~= Players then profile:EndSession() return false end
+	profiles[player] = profile
+	player:SetAttribute("GardenPersistence", ProfileStore.DataStoreState == "Access")
+	return true
+end
+function DataService.Get(player: Player): Data?
+	local profile = profiles[player]
+	if profile and profile:IsActive() then return profile.Data :: Data end
+	return nil
+end
+function DataService.Release(player: Player): ()
+	local profile = profiles[player]
+	if profile then
+		profile.Data.LastSeen = os.time()
+		profiles[player] = nil
+		profile:EndSession()
+	end
+end
+return DataService
+</ProtectedString>
+          </Properties>
+        </Item>
+        <Item class="ModuleScript" referent="RBX30">
+          <Properties>
+            <string name="Name">EconomyService</string>
+            <ProtectedString name="Source">--!strict
+-- Purpose: bounded server ledger. Dependencies: DataService, EconomyConfig.
+-- Remotes: none. Security: callers supply server-computed integer deltas only; no yield.
+local Shared = game:GetService("ReplicatedStorage").Shared
+local Config = require(Shared.Config.EconomyConfig)
+local DataService = require(script.Parent.DataService)
+local Economy = {}
+function Economy.Change(player: Player, amount: number, reason: string): boolean
+	local data = DataService.Get(player)
+	if not data or amount ~= amount or math.abs(amount) == math.huge or amount % 1 ~= 0 then return false end
+	local balance = data.Coins + amount
+	if balance &lt; 0 or balance &gt; Config.MaxCurrency then return false end
+	data.Coins = balance
+	table.insert(data.Ledger, { At = os.time(), Amount = amount, Reason = reason, Balance = balance })
+	if #data.Ledger &gt; Config.LedgerSize then table.remove(data.Ledger, 1) end
+	local stats = player:FindFirstChild("leaderstats")
+	local coins = if stats then stats:FindFirstChild("Coins") else nil
+	if coins and coins:IsA("IntValue") then coins.Value = balance end
+	return true
+end
+function Economy.InitDisplay(player: Player): ()
+	local data = DataService.Get(player)
+	if not data then return end
+	local stats = Instance.new("Folder")
+	stats.Name = "leaderstats"
+	local coins = Instance.new("IntValue")
+	coins.Name = "Coins"
+	coins.Value = data.Coins
+	coins.Parent = stats
+	stats.Parent = player
+end
+return Economy
+</ProtectedString>
+          </Properties>
+        </Item>
+        <Item class="ModuleScript" referent="RBX31">
+          <Properties>
+            <string name="Name">FusionService</string>
+            <ProtectedString name="Source">--!strict
+-- Purpose: consume three identical normal crops for one doubled-value mutant.
+-- Dependencies: DataService, EconomyService, QuestService. Remotes: Fuse dispatcher.
+-- Security: server selects owned inputs; no client-provided traits or item values; no yield.
+local HttpService = game:GetService("HttpService")
+local Shared = game:GetService("ReplicatedStorage").Shared
+local Config = require(Shared.Config.EconomyConfig)
+local Plants = require(Shared.Config.PlantConfig)
+local Data = require(script.Parent.DataService)
+local Economy = require(script.Parent.EconomyService)
+local Quest = require(script.Parent.QuestService)
+local Fusion = {}
+function Fusion.Fuse(player: Player, id: string): (boolean, string)
+	local data = Data.Get(player)
+	if not data or not Plants[id] then return false, "Tanaman tidak valid." end
+	local indices: { number } = {}
+	for index, crop in data.Crops do
+		if crop.PlantId == id and not crop.Mutant then table.insert(indices, index) end
+		if #indices == 3 then break end
+	end
+	if #indices ~= 3 then return false, "Butuh 3 hasil panen biasa yang sama." end
+	if not Economy.Change(player, -Config.FusionCost, "Fusion") then return false, "Coins belum cukup." end
+	for i = #indices, 1, -1 do table.remove(data.Crops, indices[i]) end
+	table.insert(data.Crops, { Id = HttpService:GenerateGUID(false), PlantId = id, Mutant = true })
+	data.Fusions = math.min(Config.MaxCurrency, data.Fusions + 1)
+	Quest.Progress(player, "Fuse")
+	return true, "Mutant tercipta! Nilai jual x" .. Config.MutationMultiplier
+end
+return Fusion
+</ProtectedString>
+          </Properties>
+        </Item>
+        <Item class="ModuleScript" referent="RBX32">
+          <Properties>
+            <string name="Name">PlantService</string>
+            <ProtectedString name="Source">--!strict
+-- Purpose: seed purchase, server-timed growth, inventory and crop sales.
+-- Dependencies: data/economy/plot/quest/config. Remotes: Buy/Plant/Harvest/Sell dispatcher.
+-- Security: whitelist IDs, integer slots, proximity, ownership; mutations never yield.
+local HttpService = game:GetService("HttpService")
+local Shared = game:GetService("ReplicatedStorage").Shared
+local Plants = require(Shared.Config.PlantConfig)
+local Config = require(Shared.Config.EconomyConfig)
+local Data = require(script.Parent.DataService)
+local Economy = require(script.Parent.EconomyService)
+local Plot = require(script.Parent.PlotService)
+local Quest = require(script.Parent.QuestService)
+local Plant = {}
+function Plant.ValidSlot(slot: number): boolean return slot % 1 == 0 and slot &gt;= 1 and slot &lt;= Config.Slots end
+function Plant.Buy(player: Player, id: string): (boolean, string)
+	local data, definition = Data.Get(player), Plants[id]
+	if not data or not definition then return false, "Benih tidak dikenal." end
+	local total = 0
+	for _, count in data.Seeds do total += count end
+	if total &gt;= Config.MaxInventory then return false, "Tas benih penuh." end
+	if not Economy.Change(player, -definition.Price, "Buy:" .. id) then return false, "Coins belum cukup." end
+	data.Seeds[id] = (data.Seeds[id] or 0) + 1
+	return true, "Benih dibeli. Dekati petak Anda untuk menanam."
+end
+function Plant.Plant(player: Player, id: string, slot: number): (boolean, string)
+	local data, plotId = Data.Get(player), Plot.Id(player)
+	if not data or not plotId or not Plants[id] or not Plant.ValidSlot(slot) then return false, "Petak atau benih tidak valid." end
+	if not Plot.Near(player, plotId, slot) then return false, "Dekati petak Anda dahulu." end
+	local key = tostring(slot)
+	if data.Slots[key] or (data.Seeds[id] or 0) &lt; 1 then return false, "Slot terisi atau benih habis." end
+	data.Seeds[id] -= 1
+	data.Slots[key] = { PlantId = id, PlantedAt = os.time() }
+	return true, "Benih ditanam!"
+end
+function Plant.Harvest(player: Player, slot: number): (boolean, string)
+	local data, plotId = Data.Get(player), Plot.Id(player)
+	if not data or not plotId or not Plant.ValidSlot(slot) or not Plot.Near(player, plotId, slot) then return false, "Dekati petak yang valid." end
+	local key = tostring(slot)
+	local growing = data.Slots[key]
+	if not growing then return false, "Slot kosong." end
+	local definition = Plants[growing.PlantId]
+	if not definition or os.time() &lt; growing.PlantedAt + definition.GrowthTime then return false, "Tanaman belum matang." end
+	if #data.Crops &gt;= Config.MaxInventory then return false, "Tas panen penuh. Jual dahulu." end
+	table.insert(data.Crops, { Id = HttpService:GenerateGUID(false), PlantId = growing.PlantId, Mutant = false })
+	data.Collection[growing.PlantId] = true
+	data.Slots[key] = nil
+	data.Harvests = math.min(Config.MaxCurrency, data.Harvests + 1)
+	data.XP = math.min(Config.MaxCurrency, data.XP + Config.HarvestXP)
+	Quest.Progress(player, "Harvest")
+	return true, "Panen berhasil! Jual atau simpan untuk fusion."
+end
+function Plant.Sell(player: Player, cropId: string): (boolean, string)
+	local data = Data.Get(player)
+	if not data then return false, "Data belum siap." end
+	for index, crop in data.Crops do
+		if crop.Id == cropId then
+			local definition = Plants[crop.PlantId]
+			if not definition then return false, "Tanaman tidak dikenal." end
+			local reward = definition.SellValue * (if crop.Mutant then Config.MutationMultiplier else 1)
+			if not Economy.Change(player, reward, "Sell:" .. crop.PlantId) then return false, "Saldo penuh." end
+			table.remove(data.Crops, index)
+			return true, "Terjual +" .. reward .. " Coins!"
+		end
+	end
+	return false, "Item bukan milik Anda."
+end
+function Plant.Render(player: Player): ()
+	local data, id = Data.Get(player), Plot.Id(player)
+	if not data or not id then return end
+	local model = Plot.Model(id)
+	if not model then return end
+	local folder = model:FindFirstChild("Plants")
+	if not folder then
+		folder = Instance.new("Folder")
+		folder.Name = "Plants"
+		folder.Parent = model
+	end
+	for slot = 1, Config.Slots do
+		local key = tostring(slot)
+		local growing = data.Slots[key]
+		local visual = folder:FindFirstChild(key)
+		if not growing then if visual then visual:Destroy() end continue end
+		local definition = Plants[growing.PlantId]
+		if not definition then continue end
+		local mature = os.time() &gt;= growing.PlantedAt + definition.GrowthTime
+		if not visual then
+			local stem = Instance.new("Part")
+			stem.Name = key
+			stem.Shape = Enum.PartType.Ball
+			stem.Anchored = true
+			stem.CanCollide = false
+			stem.Color = definition.Color
+			stem.Parent = folder
+			visual = stem
+		end
+		if visual:IsA("BasePart") then
+			local size = if mature then 5 else 2
+			visual.Size = Vector3.new(size, size, size)
+			visual.Position = Plot.SlotPosition(id, slot) + Vector3.new(0, size / 2 + 1, 0)
+			visual.Material = if mature then Enum.Material.Neon else Enum.Material.SmoothPlastic
+			visual:SetAttribute("PlantId", growing.PlantId)
+			visual:SetAttribute("ReadyAt", growing.PlantedAt + definition.GrowthTime)
+		end
+	end
+end
+return Plant
+</ProtectedString>
+          </Properties>
+        </Item>
+        <Item class="ModuleScript" referent="RBX33">
+          <Properties>
+            <string name="Name">PlotService</string>
+            <ProtectedString name="Source">--!strict
+-- Purpose: fixed-capacity server-owned plots and slot coordinates.
+-- Dependencies: EconomyConfig. Remotes: Claim via dispatcher. Security: one plot/user.
+local Config = require(game:GetService("ReplicatedStorage").Shared.Config.EconomyConfig)
+local Plot = {}
+local owners: { [number]: Player } = {}
+local assigned: { [Player]: number } = {}
+local models: { [number]: Model } = {}
+local function part(name: string, size: Vector3, position: Vector3, color: Color3, parent: Instance): Part
+	local object = Instance.new("Part")
+	object.Name, object.Size, object.Position, object.Color = name, size, position, color
+	object.Anchored = true
+	object.Parent = parent
+	return object
+end
+function Plot.Origin(id: number): Vector3
+	return Vector3.new(((id - 1) % Config.PlotColumns - 2.5) * Config.PlotSpacing, 0, (math.floor((id - 1) / Config.PlotColumns) - 2) * Config.PlotSpacing)
+end
+function Plot.SlotPosition(id: number, slot: number): Vector3
+	return Plot.Origin(id) + Vector3.new(((slot - 1) % 4 - 1.5) * 10, 1, (math.floor((slot - 1) / 4) - 0.5) * 12)
+end
+function Plot.Init(): ()
+	local folder = Instance.new("Folder")
+	folder.Name = "Gardens"
+	folder.Parent = workspace
+	for id = 1, Config.PlotCount do
+		local model = Instance.new("Model")
+		model.Name = "Garden_" .. id
+		model:SetAttribute("PlotId", id)
+		part("Base", Vector3.new(48, 1, 40), Plot.Origin(id), Color3.fromRGB(93, 146, 78), model)
+		for slot = 1, Config.Slots do
+			part("Soil_" .. slot, Vector3.new(8, 1, 8), Plot.SlotPosition(id, slot), Color3.fromRGB(100, 65, 40), model)
+		end
+		model.Parent = folder
+		models[id] = model
+	end
+end
+function Plot.Claim(player: Player): boolean
+	if assigned[player] then return true end
+	for id = 1, Config.PlotCount do
+		if not owners[id] then
+			owners[id], assigned[player] = player, id
+			models[id]:SetAttribute("OwnerUserId", player.UserId)
+			models[id]:SetAttribute("OwnerName", player.DisplayName)
+			return true
+		end
+	end
+	return false
+end
+function Plot.Id(player: Player): number? return assigned[player] end
+function Plot.Owner(id: number): Player? return owners[id] end
+function Plot.Near(player: Player, id: number, slot: number): boolean
+	local root = if player.Character then player.Character:FindFirstChild("HumanoidRootPart") else nil
+	return root ~= nil and root:IsA("BasePart") and (root.Position - Plot.SlotPosition(id, slot)).Magnitude &lt;= Config.InteractionDistance
+end
+function Plot.Model(id: number): Model? return models[id] end
+function Plot.Release(player: Player): ()
+	local id = assigned[player]
+	if id then
+		owners[id], assigned[player] = nil, nil
+		models[id]:SetAttribute("OwnerUserId", nil)
+		models[id]:SetAttribute("OwnerName", nil)
+		local plants = models[id]:FindFirstChild("Plants")
+		if plants then plants:Destroy() end
+	end
+end
+return Plot
+</ProtectedString>
+          </Properties>
+        </Item>
+        <Item class="ModuleScript" referent="RBX34">
+          <Properties>
+            <string name="Name">QuestService</string>
+            <ProtectedString name="Source">--!strict
+-- Purpose: daily goals and streak rewards. Dependencies: DataService, EconomyService.
+-- Remotes: Daily/Quest dispatcher. Security: UTC day, server counters, idempotent claims.
+local Shared = game:GetService("ReplicatedStorage").Shared
+local Config = require(Shared.Config.EconomyConfig)
+local Data = require(script.Parent.DataService)
+local Economy = require(script.Parent.EconomyService)
+local Quest = {}
+local targets: { [string]: number } = { Harvest = Config.QuestHarvest, Steal = Config.QuestSteal, Fuse = Config.QuestFuse }
+function Quest.Refresh(player: Player): ()
+	local data = Data.Get(player)
+	if not data then return end
+	local day = math.floor(os.time() / 86400)
+	if data.QuestDay ~= day then
+		data.QuestDay, data.Quests, data.QuestClaims = day, {}, {}
+	end
+end
+function Quest.Progress(player: Player, action: string): ()
+	Quest.Refresh(player)
+	local data = Data.Get(player)
+	if data and targets[action] then data.Quests[action] = math.min(targets[action], (data.Quests[action] or 0) + 1) end
+end
+function Quest.Claim(player: Player, name: string): (boolean, string)
+	Quest.Refresh(player)
+	local data = Data.Get(player)
+	local target = targets[name]
+	if not data or not target or data.QuestClaims[name] or (data.Quests[name] or 0) &lt; target then return false, "Misi belum selesai atau sudah diklaim." end
+	if data.Gems + Config.QuestGems &gt; Config.MaxCurrency then return false, "Gems penuh." end
+	if not Economy.Change(player, Config.QuestCoins, "Quest:" .. name) then return false, "Saldo penuh." end
+	data.Gems += Config.QuestGems
+	data.XP = math.min(Config.MaxCurrency, data.XP + Config.QuestXP)
+	data.QuestClaims[name] = true
+	return true, "Hadiah misi diterima!"
+end
+function Quest.Daily(player: Player): (boolean, string)
+	local data = Data.Get(player)
+	local day = math.floor(os.time() / 86400)
+	if not data or data.LastDaily &gt;= day then return false, "Hadiah hari ini sudah diambil." end
+	local streak = if data.LastDaily == day - 1 then data.Streak % #Config.DailyCoins + 1 else 1
+	if not Economy.Change(player, Config.DailyCoins[streak], "Daily") then return false, "Saldo penuh." end
+	data.Streak, data.LastDaily = streak, day
+	if streak == #Config.DailyCoins then
+		local total = 0
+		for _, count in data.Seeds do total += count end
+		if total &lt; Config.MaxInventory then data.Seeds.crystal = (data.Seeds.crystal or 0) + 1 end
+	end
+	return true, "Hadiah harian diterima!"
+end
+return Quest
+</ProtectedString>
+          </Properties>
+        </Item>
+        <Item class="ModuleScript" referent="RBX35">
+          <Properties>
+            <string name="Name">SeasonPassService</string>
+            <ProtectedString name="Source">--!strict
+-- Purpose: dated free season progression. Dependencies: DataService, configs.
+-- Remotes: Season dispatcher. Security: bounded tier claims from server XP only.
+local Shared = game:GetService("ReplicatedStorage").Shared
+local Config = require(Shared.Config.SeasonConfig)
+local EconomyConfig = require(Shared.Config.EconomyConfig)
+local Data = require(script.Parent.DataService)
+local Economy = require(script.Parent.EconomyService)
+local Season = {}
+function Season.Refresh(player: Player): ()
+	local data = Data.Get(player)
+	if not data then return end
+	local id = math.floor((os.time() - Config.Epoch) / Config.Duration)
+	if data.SeasonId ~= id then data.SeasonId, data.XP, data.SeasonClaims = id, 0, {} end
+end
+function Season.Claim(player: Player, tier: number): (boolean, string)
+	Season.Refresh(player)
+	local data = Data.Get(player)
+	if not data or tier % 1 ~= 0 or tier &lt; 1 or tier &gt; Config.Tiers or data.XP &lt; tier * Config.XPPerTier or data.SeasonClaims[tostring(tier)] then
+		return false, "Tier belum terbuka atau sudah diklaim."
+	end
+	if not Economy.Change(player, Config.FreeCoinsPerTier * tier, "Season") then return false, "Saldo penuh." end
+	data.SeasonClaims[tostring(tier)] = true
+	return true, "Hadiah season diterima!"
+end
+return Season
+</ProtectedString>
+          </Properties>
+        </Item>
+        <Item class="ModuleScript" referent="RBX36">
+          <Properties>
+            <string name="Name">WorldService</string>
+            <ProtectedString name="Source">--!strict
+-- Purpose: UTC-aligned cross-server day/night clock. Dependencies: EconomyConfig.
+-- Remotes: snapshot only. Security: server time only; no client overrides.
+local Lighting = game:GetService("Lighting")
+local Config = require(game:GetService("ReplicatedStorage").Shared.Config.EconomyConfig)
+local World = {}
+function World.IsNight(): boolean
+	return os.time() % Config.NightCycle &gt;= Config.NightCycle - Config.NightDuration
+end
+function World.Remaining(): number
+	local elapsed = os.time() % Config.NightCycle
+	return (if World.IsNight() then Config.NightCycle else Config.NightCycle - Config.NightDuration) - elapsed
+end
+function World.Update(): ()
+	Lighting.ClockTime = if World.IsNight() then 0 else 12
+	Lighting.Brightness = if World.IsNight() then 1 else 2
+end
+return World
+</ProtectedString>
+          </Properties>
+        </Item>
+      </Item>
+      <Item class="Folder" referent="RBX37">
+        <Properties>
+          <string name="Name">Vendor</string>
+        </Properties>
+        <Item class="ModuleScript" referent="RBX38">
+          <Properties>
+            <string name="Name">ProfileStore</string>
+            <ProtectedString name="Source">--[[
+MAD STUDIO (by loleris)
+
+-[ProfileStore]---------------------------------------
+
+	Periodic DataStore saving solution with session locking
+	
+	WARNINGS FOR "Profile.Data" VALUES:
+	 	! Do not create numeric tables with gaps - attempting to store such tables will result in an error.
+		! Do not create mixed tables (some values indexed by number and others by a string key)
+			- only numerically indexed  data will be stored.
+		! Do not index tables by anything other than numbers and strings.
+		! Do not reference Roblox Instances
+		! Do not reference userdata (Vector3, Color3, CFrame...) - Serialize userdata before referencing
+		! Do not reference functions
+		
+	Members:
+	
+		ProfileStore.IsClosing          [bool]
+			-- Set to true after a game:BindToClose() trigger
+			
+		ProfileStore.IsCriticalState    [bool]
+			-- Set to true when ProfileStore experiences too many consecutive errors
+		
+		ProfileStore.OnError            [Signal] (message, store_name, profile_key)
+			-- Most ProfileStore errors will be caught and passed to this signal
+			
+		ProfileStore.OnOverwrite        [Signal] (store_name, profile_key)
+			-- Triggered when a DataStore key was likely used to store data that wasn't
+			a ProfileStore profile or the ProfileStore structure was invalidly manually
+			altered for that DataStore key
+			
+		ProfileStore.OnCriticalToggle   [Signal] (is_critical)
+			-- Triggered when ProfileStore experiences too many consecutive errors
+		
+		ProfileStore.DataStoreState     [string] ("NotReady", "NoInternet", "NoAccess", "Access")
+			-- This value resembles ProfileStore's access to the DataStore; The value starts
+			as "NotReady" and will eventually change to one of the other 3 possible values.
+	
+	Functions:
+	
+		ProfileStore.New(store_name, template?) --&gt; [ProfileStore]
+			store_name   [string] -- DataStore name
+			template     [table] or nil -- Profiles will default to given table (hard-copy) when no data was saved previously
+			
+		ProfileStore.SetConstant(name, value)
+			name    [string]
+			value   [number]
+				
+	Members [ProfileStore]:
+	
+		ProfileStore.Mock   [ProfileStore]
+			-- Reflection of ProfileStore methods, but the methods will now query a mock
+			DataStore with no relation to the real DataStore
+			
+		ProfileStore.Name   [string]
+		
+	Methods [ProfileStore]:
+	
+		ProfileStore:StartSessionAsync(profile_key, params?) --&gt; [Profile] or nil
+			profile_key [string] -- DataStore key
+			params      nil or [table]: -- Custom params; E.g. {Steal = true}
+				{
+					Steal = true, -- Pass this to disregard an existing session lock
+					Cancel = fn() -&gt; (boolean), -- Pass this to create a request cancel condition.
+						-- If the cancel function returns true, ProfileStore will stop trying to
+						-- start the session and return nil
+				}
+			
+		ProfileStore:MessageAsync(profile_key, message) --&gt; is_success [bool]
+			profile_key [string] -- DataStore key
+			message     [table] -- Data to be messaged to the profile
+			
+		ProfileStore:GetAsync(profile_key, version?) --&gt; [Profile] or nil
+			-- Reads a profile without starting a session - will not autosave
+			profile_key   [string] -- DataStore key
+			version       nil or [string] -- DataStore key version
+
+		ProfileStore:VersionQuery(profile_key, sort_direction?, min_date?, max_date?) --&gt; [VersionQuery]
+			profile_key      [string]
+			sort_direction   nil or [Enum.SortDirection]
+			min_date         nil or [DateTime]
+			max_date         nil or [DateTime]
+			
+		ProfileStore:RemoveAsync(profile_key) --&gt; is_success [bool]
+			-- Completely removes profile data from the DataStore / mock DataStore with no way to recover it.
+
+	Methods [VersionQuery]:
+
+		VersionQuery:NextAsync() --&gt; [Profile] or nil -- (Yields)
+			-- Returned profile is similar to profiles returned by ProfileStore:GetAsync()
+		
+	Members [Profile]:
+	
+		Profile.Data               [table]
+			-- When the profile is active changes to this table are guaranteed to be saved
+		Profile.LastSavedData      [table] (Read-only)
+			-- Last snapshot of "Profile.Data" that has been successfully saved to the DataStore;
+			Useful for proper developer product purchase receipt handling
+		
+		Profile.FirstSessionTime   [number] (Read-only)
+			-- os.time() timestamp of the first profile session
+			
+		Profile.SessionLoadCount   [number] (Read-only) -- Amount of times a session was started for this profile
+			
+		Profile.Session            [table] (Read-only) {PlaceId = number, JobId = string} / nil
+			-- Set to a table if this profile is in use by a server; nil if released
+
+		Profile.RobloxMetaData     [table] -- Writable table that gets saved automatically and once the profile is released
+		Profile.UserIds            [table] -- (Read-only) -- {user_id [number], ...} -- User ids associated with this profile
+
+		Profile.KeyInfo            [DataStoreKeyInfo] -- Changes before OnAfterSave signal
+		
+		Profile.OnSave             [Signal] ()
+			-- Triggered right before changes to Profile.Data are saved to the DataStore
+			
+		Profile.OnLastSave         [Signal] (reason [string]: "Manual", "External", "Shutdown")
+			-- Triggered right before changes to Profile.Data are saved to the DataStore
+			for the last time; A reason is provided for the last save:
+				- "Manual"   - Profile:EndSession() was called
+				- "Shutdown" - The server that has ownership of this profile is shutting down
+				- "External" - Another server has started a session for this profile
+			Note that this event will not trigger for when a profile session is ended by
+			another server trying to take ownership of the session - this is impossible to
+			do without compromising on ProfileStore's speed.
+			
+		Profile.OnSessionEnd       [Signal] ()
+			-- Triggered when the profile session is terminated on this server
+		
+		Profile.OnAfterSave        [Signal] (last_saved_data)
+			-- Triggered after a successful save
+			last_saved_data [table] -- Profile.LastSavedData
+			
+		Profile.ProfileStore       [ProfileStore] -- ProfileStore object this profile belongs to
+		Profile.Key                [string] -- DataStore key
+		
+	Methods [Profile]:
+	
+		Profile:IsActive() --&gt; [bool] -- If "true" is returned, changes to Profile.Data are guaranteed to save;
+			This guarantee is only valid until code yields (e.g. task.wait() is used).
+			
+		Profile:Reconcile() -- Fills in missing (nil) [string_key] = [value] pairs to the Profile.Data structure
+			from the "template" argument that was passed to "ProfileStore.New()"
+			
+		Profile:EndSession() -- Call after the server has finished working with this profile
+			e.g., after the player leaves (Profile object will become inactive)
+
+		Profile:AddUserId(user_id) -- Associates user_id with profile (GDPR compliance)
+			user_id   [number]
+
+		Profile:RemoveUserId(user_id) -- Removes user_id association with profile (safe function)
+			user_id   [number]
+			
+		Profile:MessageHandler(fn) -- Sets a message handler for this profile
+			fn [function] (message [table], processed [function]())
+			-- The handler function receives a message table and a callback function;
+			The callback function is to be called when a message has been processed
+			- this will discard the message from the profile message cache; If the
+			callback function is not called, other message handlers will also be triggered
+			with unprocessed message data.
+			
+		Profile:Save() -- If the profile session is still active makes an UpdateAsync call
+			to the DataStore to immediately save profile data
+
+		Profile:SetAsync() -- Forcefully saves changes to the profile; Only for profiles
+			loaded with ProfileStore:GetAsync() or ProfileStore:VersionQuery()
+		
+--]]
+
+local AUTO_SAVE_PERIOD = 300 -- (Seconds) Time between when changes to a profile are saved to the DataStore
+local LOAD_REPEAT_PERIOD = 10 -- (Seconds) Time between successive profile reads when handling a session conflict
+local FIRST_LOAD_REPEAT = 5 -- (Seconds) Time between first and second profile read when handling a session conflict
+local SESSION_STEAL = 40 -- (Seconds) Time until a session conflict is resolved with the waiting server stealing the session
+local ASSUME_DEAD = 630 -- (Seconds) If a profile hasn't had updates for this long, quickly assume an active session belongs to a crashed server
+local START_SESSION_TIMEOUT = 120 -- (Seconds) If a session can't be started for a profile for this long, stop repeating calls to the DataStore
+
+local CRITICAL_STATE_ERROR_COUNT = 5 -- Assume critical state if this many issues happen in a short amount of time
+local CRITICAL_STATE_ERROR_EXPIRE = 120 -- (Seconds) Individual issue expiration
+local CRITICAL_STATE_EXPIRE = 120 -- (Seconds) Critical state expiration
+
+local MAX_MESSAGE_QUEUE = 1000 -- Max messages saved in a profile that were sent using "ProfileStore:MessageAsync()"
+
+----- Dependencies -----
+
+-- local Util = require(game.ReplicatedStorage.Shared.Util)
+-- local Signal = Util.Signal
+
+local Signal do
+
+	local FreeRunnerThread
+
+	--[[
+		Yield-safe coroutine reusing by stravant;
+		Sources:
+		https://devforum.roblox.com/t/lua-signal-class-comparison-optimal-goodsignal-class/1387063
+		https://gist.github.com/stravant/b75a322e0919d60dde8a0316d1f09d2f
+	--]]
+
+	local function AcquireRunnerThreadAndCallEventHandler(fn, ...)
+		local acquired_runner_thread = FreeRunnerThread
+		FreeRunnerThread = nil
+		fn(...)
+		-- The handler finished running, this runner thread is free again.
+		FreeRunnerThread = acquired_runner_thread
+	end
+
+	local function RunEventHandlerInFreeThread(...)
+		AcquireRunnerThreadAndCallEventHandler(...)
+		while true do
+			AcquireRunnerThreadAndCallEventHandler(coroutine.yield())
+		end
+	end
+
+	local Connection = {}
+	Connection.__index = Connection
+
+	local SignalClass = {}
+	SignalClass.__index = SignalClass
+
+	function Connection:Disconnect()
+
+		if self.is_connected == false then
+			return
+		end
+
+		local signal = self.signal
+		self.is_connected = false
+		signal.listener_count -= 1
+
+		if signal.head == self then
+			signal.head = self.next
+		else
+			local prev = signal.head
+			while prev ~= nil and prev.next ~= self do
+				prev = prev.next
+			end
+			if prev ~= nil then
+				prev.next = self.next
+			end
+		end
+
+	end
+
+	function SignalClass.New()
+
+		local self = {
+			head = nil,
+			listener_count = 0,
+		}
+		setmetatable(self, SignalClass)
+
+		return self
+
+	end
+
+	function SignalClass:Connect(listener: (...any) -&gt; ())
+
+		if type(listener) ~= "function" then
+			error(`[{script.Name}]: \"listener\" must be a function; Received {typeof(listener)}`)
+		end
+
+		local connection = {
+			listener = listener,
+			signal = self,
+			next = self.head,
+			is_connected = true,
+		}
+		setmetatable(connection, Connection)
+
+		self.head = connection
+		self.listener_count += 1
+
+		return connection
+
+	end
+
+	function SignalClass:GetListenerCount(): number
+		return self.listener_count
+	end
+
+	function SignalClass:Fire(...)
+		local item = self.head
+		while item ~= nil do
+			if item.is_connected == true then
+				if not FreeRunnerThread then
+					FreeRunnerThread = coroutine.create(RunEventHandlerInFreeThread)
+				end
+				task.spawn(FreeRunnerThread, item.listener, ...)
+			end
+			item = item.next
+		end
+	end
+
+	function SignalClass:Wait()
+		local co = coroutine.running()
+		local connection
+		connection = self:Connect(function(...)
+			connection:Disconnect()
+			task.spawn(co, ...)
+		end)
+		return coroutine.yield()
+	end
+
+	Signal = table.freeze({
+		New = SignalClass.New,
+	})
+
+end
+
+----- Private -----
+
+local ActiveSessionCheck = {} -- {[session_token] = profile, ...}
+local AutoSaveList = {} -- {profile, ...} -- Loaded profile table which will be circularly auto-saved
+local IssueQueue = {} -- {issue_time, ...}
+
+local DataStoreService = game:GetService("DataStoreService")
+local MessagingService = game:GetService("MessagingService")
+local HttpService = game:GetService("HttpService")
+local RunService = game:GetService("RunService")
+
+local PlaceId = game.PlaceId
+local JobId = game.JobId
+
+local AutoSaveIndex = 1 -- Next profile to auto save
+local LastAutoSave = os.clock()
+
+local LoadIndex = 0
+
+local ActiveProfileLoadJobs = 0 -- Number of active threads that are loading in profiles
+local ActiveProfileSaveJobs = 0 -- Number of active threads that are saving profiles
+
+local CriticalStateStart = 0 -- os.clock()
+
+local IsStudio = RunService:IsStudio()
+local DataStoreState: "NotReady" | "NoInternet" | "NoAccess" | "Access" = "NotReady"
+
+local MockStore = {}
+local UserMockStore = {}
+local MockFlag = false
+
+local OnError = Signal.New() -- (message, store_name, profile_key)
+local OnOverwrite = Signal.New() -- (store_name, profile_key)
+
+local UpdateQueue = { -- For stability sake, we won't do UpdateAsync calls for the same key until all previous calls finish
+	--[[
+		[session_token] = {
+			coroutine, ...
+		},
+		...
+	--]]
+}
+
+local function WaitInUpdateQueue(session_token) --&gt; next_in_queue()
+
+	local is_first = false
+
+	if UpdateQueue[session_token] == nil then
+		is_first = true
+		UpdateQueue[session_token] = {}
+	end
+
+	local queue = UpdateQueue[session_token]
+
+	if is_first == false then
+		table.insert(queue, coroutine.running())
+		coroutine.yield()
+	end
+
+	return function()
+		local next_co = table.remove(queue, 1)
+		if next_co ~= nil then
+			coroutine.resume(next_co)
+		else
+			UpdateQueue[session_token] = nil
+		end
+	end
+
+end
+
+local function SessionToken(store_name, profile_key, is_mock)
+
+	local session_token = "L_" -- Live
+
+	if is_mock == true then
+		session_token = "U_" -- User mock
+	elseif DataStoreState ~= "Access" then
+		session_token = "M_" -- Mock, cause no DataStore access
+	end
+
+	session_token ..= store_name .. "\0" .. profile_key
+
+	return session_token
+
+end
+
+local function DeepCopyTable(t)
+	local copy = {}
+	for key, value in pairs(t) do
+		if type(value) == "table" then
+			copy[key] = DeepCopyTable(value)
+		else
+			copy[key] = value
+		end
+	end
+	return copy
+end
+
+local function ReconcileTable(target, template)
+	for k, v in pairs(template) do
+		if type(k) == "string" then -- Only string keys will be reconciled
+			if target[k] == nil then
+				if type(v) == "table" then
+					target[k] = DeepCopyTable(v)
+				else
+					target[k] = v
+				end
+			elseif type(target[k]) == "table" and type(v) == "table" then
+				ReconcileTable(target[k], v)
+			end
+		end
+	end
+end
+
+local function RegisterError(error_message, store_name, profile_key) -- Called when a DataStore API call errors
+	warn(`[{script.Name}]: DataStore API error (STORE:{store_name}; KEY:{profile_key}) - {tostring(error_message)}`)
+	table.insert(IssueQueue, os.clock()) -- Adding issue time to queue
+	OnError:Fire(tostring(error_message), store_name, profile_key)
+end
+
+local function RegisterOverwrite(store_name, profile_key) -- Called when a corrupted profile is loaded
+	warn(`[{script.Name}]: Invalid profile was overwritten (STORE:{store_name}; KEY:{profile_key})`)
+	OnOverwrite:Fire(store_name, profile_key)
+end
+
+local function NewMockDataStoreKeyInfo(params)
+
+	local version_id_string = tostring(params.VersionId or 0)
+	local meta_data = params.MetaData or {}
+	local user_ids = params.UserIds or {}
+
+	return {
+		CreatedTime = params.CreatedTime,
+		UpdatedTime = params.UpdatedTime,
+		Version = string.rep("0", 16) .. "."
+			.. string.rep("0", 10 - string.len(version_id_string)) .. version_id_string
+			.. "." .. string.rep("0", 16) .. "." .. "01",
+
+		GetMetadata = function()
+			return DeepCopyTable(meta_data)
+		end,
+
+		GetUserIds = function()
+			return DeepCopyTable(user_ids)
+		end,
+	}
+
+end
+
+local function MockUpdateAsync(mock_data_store, profile_store_name, key, transform_function, is_get_call) --&gt; loaded_data, key_info
+
+	local profile_store = mock_data_store[profile_store_name]
+
+	if profile_store == nil then
+		profile_store = {}
+		mock_data_store[profile_store_name] = profile_store
+	end
+
+	local epoch_time = math.floor(os.time() * 1000)
+	local mock_entry = profile_store[key]
+	local mock_entry_was_nil = false
+
+	if mock_entry == nil then
+		mock_entry_was_nil = true
+		if is_get_call ~= true then
+			mock_entry = {
+				Data = nil,
+				CreatedTime = epoch_time,
+				UpdatedTime = epoch_time,
+				VersionId = 0,
+				UserIds = {},
+				MetaData = {},
+			}
+			profile_store[key] = mock_entry
+		end
+	end
+
+	local mock_key_info = mock_entry_was_nil == false and NewMockDataStoreKeyInfo(mock_entry) or nil
+
+	local transform, user_ids, roblox_meta_data = transform_function(mock_entry and mock_entry.Data, mock_key_info)
+
+	if transform == nil then
+		return nil
+	else
+		if mock_entry ~= nil and is_get_call ~= true then
+			mock_entry.Data = DeepCopyTable(transform)
+			mock_entry.UserIds = DeepCopyTable(user_ids or {})
+			mock_entry.MetaData = DeepCopyTable(roblox_meta_data or {})
+			mock_entry.VersionId += 1
+			mock_entry.UpdatedTime = epoch_time
+		end
+
+		return DeepCopyTable(transform), mock_entry ~= nil and NewMockDataStoreKeyInfo(mock_entry) or nil
+	end
+
+end
+
+local function UpdateAsync(profile_store, profile_key, transform_params, is_user_mock, is_get_call, version) --&gt; loaded_data, key_info
+	--transform_params = {
+	--	ExistingProfileHandle = function(latest_data),
+	--	MissingProfileHandle = function(latest_data),
+	--	EditProfile = function(latest_data),
+	--}
+
+	local loaded_data, key_info
+	
+	local next_in_queue = WaitInUpdateQueue(SessionToken(profile_store.Name, profile_key, is_user_mock))
+
+	local success = true
+
+	local success, error_message = pcall(function()
+		local transform_function = function(latest_data)
+
+			local missing_profile = false
+			local overwritten = false
+			local global_updates = {0, {}}
+
+			if latest_data == nil then
+
+				missing_profile = true
+
+			elseif type(latest_data) ~= "table" then
+
+				missing_profile = true
+				overwritten = true
+
+			else
+
+				if type(latest_data.Data) == "table" and type(latest_data.MetaData) == "table" and type(latest_data.GlobalUpdates) == "table" then
+
+					-- Regular profile structure detected:
+
+					latest_data.WasOverwritten = false -- Must be set to false if set previously
+					global_updates = latest_data.GlobalUpdates
+
+					if transform_params.ExistingProfileHandle ~= nil then
+						transform_params.ExistingProfileHandle(latest_data)
+					end
+
+				elseif latest_data.Data == nil and latest_data.MetaData == nil and type(latest_data.GlobalUpdates) == "table" then
+
+					-- Regular structure not detected, but GlobalUpdate data exists:
+
+					latest_data.WasOverwritten = false -- Must be set to false if set previously
+					global_updates = latest_data.GlobalUpdates or global_updates
+					missing_profile = true
+
+				else
+
+					missing_profile = true
+					overwritten = true
+
+				end
+
+			end
+
+			-- Profile was not created or corrupted and no GlobalUpdate data exists:
+			if missing_profile == true then
+				latest_data = {
+					-- Data = nil,
+					-- MetaData = nil,
+					GlobalUpdates = global_updates,
+				}
+				if transform_params.MissingProfileHandle ~= nil then
+					transform_params.MissingProfileHandle(latest_data)
+				end
+			end
+
+			-- Editing profile:
+			if transform_params.EditProfile ~= nil then
+				transform_params.EditProfile(latest_data)
+			end
+
+			-- Invalid data handling (Silently override with empty profile)
+			if overwritten == true then
+				latest_data.WasOverwritten = true -- Temporary tag that will be removed on first save
+			end
+
+			return latest_data, latest_data.UserIds, latest_data.RobloxMetaData
+		end
+
+		if is_user_mock == true then -- Used when the profile is accessed through ProfileStore.Mock
+
+			loaded_data, key_info = MockUpdateAsync(UserMockStore, profile_store.Name, profile_key, transform_function, is_get_call)
+			task.wait() -- Simulate API call yield
+
+		elseif DataStoreState ~= "Access" then -- Used when API access is disabled
+
+			loaded_data, key_info = MockUpdateAsync(MockStore, profile_store.Name, profile_key, transform_function, is_get_call)
+			task.wait() -- Simulate API call yield
+
+		else
+
+			if is_get_call == true then
+
+				if version ~= nil then
+
+					local success, error_message = pcall(function()
+						loaded_data, key_info = profile_store.data_store:GetVersionAsync(profile_key, version)
+					end)
+
+					if success == false and type(error_message) == "string" and string.find(error_message, "not valid") ~= nil then
+						warn(`[{script.Name}]: Passed version argument is not valid; Traceback:\n` .. debug.traceback())
+					end
+
+				else
+
+					loaded_data, key_info = profile_store.data_store:GetAsync(profile_key)
+
+				end
+
+				loaded_data = transform_function(loaded_data)
+
+			else
+
+				loaded_data, key_info = profile_store.data_store:UpdateAsync(profile_key, transform_function)
+
+			end
+
+		end
+
+	end)
+
+	next_in_queue()
+
+	if success == true and type(loaded_data) == "table" then
+		-- Invalid data handling:
+		if loaded_data.WasOverwritten == true and is_get_call ~= true then
+			RegisterOverwrite(
+				profile_store.Name,
+				profile_key
+			)
+		end
+		-- Return loaded_data:
+		return loaded_data, key_info
+	else
+		-- Error handling:
+		RegisterError(
+			error_message or "Undefined error",
+			profile_store.Name,
+			profile_key
+		)
+		-- Return nothing:
+		return nil
+	end
+
+end
+
+local function IsThisSession(session_tag)
+	return session_tag[1] == PlaceId and session_tag[2] == JobId
+end
+
+local function ReadMockFlag(): boolean
+	local is_mock = MockFlag
+	MockFlag = false
+	return is_mock
+end
+
+local function WaitForStoreReady(profile_store)
+	while profile_store.is_ready == false do
+		task.wait()
+	end
+end
+
+local function AddProfileToAutoSave(profile)
+
+	ActiveSessionCheck[profile.session_token] = profile
+
+	-- Add at AutoSaveIndex and move AutoSaveIndex right:
+
+	table.insert(AutoSaveList, AutoSaveIndex, profile)
+
+	if #AutoSaveList &gt; 1 then
+		AutoSaveIndex = AutoSaveIndex + 1
+	elseif #AutoSaveList == 1 then
+		-- First profile created - make sure it doesn't get immediately auto saved:
+		LastAutoSave = os.clock()
+	end
+
+end
+
+local function RemoveProfileFromAutoSave(profile)
+
+	ActiveSessionCheck[profile.session_token] = nil
+
+	local auto_save_index = table.find(AutoSaveList, profile)
+
+	if auto_save_index ~= nil then
+		table.remove(AutoSaveList, auto_save_index)
+		if auto_save_index &lt; AutoSaveIndex then
+			AutoSaveIndex = AutoSaveIndex - 1 -- Table contents were moved left before AutoSaveIndex so move AutoSaveIndex left as well
+		end
+		if AutoSaveList[AutoSaveIndex] == nil then -- AutoSaveIndex was at the end of the AutoSaveList - reset to 1
+			AutoSaveIndex = 1
+		end
+	end
+
+end
+
+local function SaveProfileAsync(profile, is_ending_session, is_overwriting, last_save_reason)
+
+	if type(profile.Data) ~= "table" then
+		error(`[{script.Name}]: Developer code likely set "Profile.Data" to a non-table value! (STORE:{profile.ProfileStore.Name}; KEY:{profile.Key})`)
+	end
+
+	profile.OnSave:Fire()
+	if is_ending_session == true then
+		profile.OnLastSave:Fire(last_save_reason or "Manual")
+	end
+
+	if is_ending_session == true and is_overwriting ~= true then
+		if profile.roblox_message_subscription ~= nil then
+			profile.roblox_message_subscription:Disconnect()
+		end
+		RemoveProfileFromAutoSave(profile)
+		profile.OnSessionEnd:Fire()
+	end
+
+	ActiveProfileSaveJobs = ActiveProfileSaveJobs + 1
+
+	-- Compare "SessionLoadCount" when writing to profile to prevent a rare case of repeat last save when the profile is loaded on the same server again
+
+	local repeat_save_flag = true -- Released Profile save calls have to repeat until they succeed
+	local exp_backoff = 1
+
+	while repeat_save_flag == true do
+
+		if is_ending_session ~= true then
+			repeat_save_flag = false
+		end
+
+		local loaded_data, key_info = UpdateAsync(
+			profile.ProfileStore,
+			profile.Key,
+			{
+				ExistingProfileHandle = nil,
+				MissingProfileHandle = nil,
+				EditProfile = function(latest_data)
+					
+					-- Check if this session still owns the profile:
+
+					local session_owns_profile = false
+
+					if is_overwriting ~= true then
+
+						local active_session = latest_data.MetaData.ActiveSession
+						local session_load_count = latest_data.MetaData.SessionLoadCount
+
+						if type(active_session) == "table" then
+							session_owns_profile = IsThisSession(active_session) and session_load_count == profile.load_index
+						end
+
+					else
+						session_owns_profile = true
+					end
+
+					-- We may only edit the profile if this server has ownership of the profile:
+
+					if session_owns_profile == true then
+
+						-- Clear processed updates (messages):
+
+						local locked_updates = profile.locked_global_updates -- [index] = true, ...
+						local active_updates = latest_data.GlobalUpdates[2]
+						-- ProfileService module format: {{update_id, version_id, update_locked, update_data}, ...}
+						-- ProfileStore module format: {{update_id, update_data}, ...}
+
+						if next(locked_updates) ~= nil then
+							local i = 1
+							while i &lt;= #active_updates do
+								local update = active_updates[i]
+								if locked_updates[update[1]] == true then
+									table.remove(active_updates, i)
+								else
+									i += 1
+								end
+							end
+						end
+
+						-- Save profile data:
+
+						latest_data.Data = profile.Data
+						latest_data.RobloxMetaData = profile.RobloxMetaData
+						latest_data.UserIds = profile.UserIds
+
+						if is_overwriting ~= true then
+
+							latest_data.MetaData.LastUpdate = os.time()
+
+							if is_ending_session == true then
+								latest_data.MetaData.ActiveSession = nil
+							end
+
+						else
+
+							latest_data.MetaData.ActiveSession = nil
+							latest_data.MetaData.ForceLoadSession = nil
+
+						end
+
+					end
+
+				end,
+			},
+			profile.is_mock
+		)
+
+		if loaded_data ~= nil and key_info ~= nil then
+
+			if is_overwriting == true then
+				break
+			end
+			
+			repeat_save_flag = false
+			
+			local active_session = loaded_data.MetaData.ActiveSession
+			local session_load_count = loaded_data.MetaData.SessionLoadCount
+			local session_owns_profile = false
+
+			if type(active_session) == "table" then
+				session_owns_profile = IsThisSession(active_session) and session_load_count == profile.load_index
+			end
+			
+			local force_load_session = loaded_data.MetaData.ForceLoadSession
+			local force_load_pending = false
+			if type(force_load_session) == "table" then
+				force_load_pending = not IsThisSession(force_load_session)
+			end
+			
+			local is_active = profile:IsActive()
+			
+			-- If another server is trying to start a session for this profile - end the session:
+
+			if force_load_pending == true and session_owns_profile == true then
+				if is_active == true then
+					SaveProfileAsync(profile, true, false, "External")
+				end
+				break
+			end
+			
+			-- Clearing processed update list / Detecting new updates:
+
+			local locked_updates = profile.locked_global_updates -- [index] = true, ...
+			local received_updates = profile.received_global_updates -- [index] = true, ...
+			local active_updates = loaded_data.GlobalUpdates[2]
+
+			local new_updates = {} -- {}, ...
+			local still_pending = {} -- [index] = true, ...
+
+			for _, update in ipairs(active_updates) do
+				if locked_updates[update[1]] == true then
+					still_pending[update[1]] = true
+				elseif received_updates[update[1]] ~= true then
+					received_updates[update[1]] = true
+					table.insert(new_updates, update)
+				end
+			end
+
+			for index in pairs(locked_updates) do
+				if still_pending[index] ~= true then
+					locked_updates[index] = nil
+				end
+			end
+
+			-- Updating profile values:
+
+			profile.KeyInfo = key_info
+			profile.LastSavedData = loaded_data.Data
+			profile.global_updates = loaded_data.GlobalUpdates and loaded_data.GlobalUpdates[2] or {}
+
+			if session_owns_profile == true then
+				if is_active == true and is_ending_session ~= true then
+
+					-- Processing new global updates (messages):
+
+					for _, update in ipairs(new_updates) do
+
+						local index = update[1]
+						local update_data = update[#update] -- Backwards compatibility with ProfileService
+
+						for _, handler in ipairs(profile.message_handlers) do
+
+							local is_processed = false
+							local processed_callback = function()
+								is_processed = true
+								locked_updates[index] = true
+							end
+							
+							local send_update_data = DeepCopyTable(update_data)
+
+							task.spawn(handler, send_update_data, processed_callback)
+
+							if is_processed == true then
+								break
+							end
+
+						end
+
+					end
+
+				end
+			else
+				
+				if profile.roblox_message_subscription ~= nil then
+					profile.roblox_message_subscription:Disconnect()
+				end
+
+				if is_active == true then
+					RemoveProfileFromAutoSave(profile)
+					profile.OnSessionEnd:Fire()
+				end
+
+			end
+
+			profile.OnAfterSave:Fire(profile.LastSavedData)
+
+		elseif repeat_save_flag == true then
+			
+			-- DataStore call likely resulted in an error; Repeat the DataStore call shortly
+			task.wait(exp_backoff)
+			exp_backoff = math.min(if last_save_reason == "Shutdown" then 8 else 20, exp_backoff * 2)
+
+		end
+
+	end
+
+	ActiveProfileSaveJobs = ActiveProfileSaveJobs - 1
+
+end
+
+----- Public -----
+
+--[[
+	Saved profile structure:
+	
+	{
+		Data = {},
+		
+		MetaData = {
+			ProfileCreateTime = 0,
+			SessionLoadCount = 0,
+			ActiveSession = {place_id, game_job_id, unique_session_id} / nil,
+			ForceLoadSession = {place_id, game_job_id} / nil,
+			LastUpdate = 0, -- os.time()
+			MetaTags = {}, -- Backwards compatibility with ProfileService
+		},
+		
+		RobloxMetaData = {},
+		UserIds = {},
+		
+		GlobalUpdates = {
+			update_index,
+			{
+				{update_index, data}, ...
+			},
+		},
+	}
+
+--]]
+
+export type JSONAcceptable = { JSONAcceptable } | { [string]: JSONAcceptable } | number | string | boolean | buffer
+
+export type Profile&lt;T&gt; = {
+	Data: T &amp; JSONAcceptable,
+	LastSavedData: T &amp; JSONAcceptable,
+	FirstSessionTime: number,
+	SessionLoadCount: number,
+	Session: {PlaceId: number, JobId: string}?,
+	RobloxMetaData: JSONAcceptable,
+	UserIds: {number},
+	KeyInfo: DataStoreKeyInfo,
+	OnSave: {Connect: (self: any, listener: () -&gt; ()) -&gt; ({Disconnect: (self: any) -&gt; ()})},
+	OnLastSave: {Connect: (self: any, listener: (reason: "Manual" | "External" | "Shutdown") -&gt; ()) -&gt; ({Disconnect: (self: any) -&gt; ()})},
+	OnSessionEnd: {Connect: (self: any, listener: () -&gt; ()) -&gt; ({Disconnect: (self: any) -&gt; ()})},
+	OnAfterSave: {Connect: (self: any, listener: (last_saved_data: T &amp; JSONAcceptable) -&gt; ()) -&gt; ({Disconnect: (self: any) -&gt; ()})},
+	ProfileStore: JSONAcceptable,
+	Key: string,
+
+	IsActive: (self: any) -&gt; (boolean),
+	Reconcile: (self: any) -&gt; (),
+	EndSession: (self: any) -&gt; (),
+	AddUserId: (self: any, user_id: number) -&gt; (),
+	RemoveUserId: (self: any, user_id: number) -&gt; (),
+	MessageHandler: (self: any, fn: (message: JSONAcceptable, processed: () -&gt; ()) -&gt; ()) -&gt; (),
+	Save: (self: any) -&gt; (),
+	SetAsync: (self: any) -&gt; (),
+}
+
+export type VersionQuery&lt;T&gt; = {
+	NextAsync: (self: any) -&gt; (Profile&lt;T&gt;?),
+}
+
+type ProfileStoreStandard&lt;T&gt; = {
+	Name: string,
+	StartSessionAsync: (self: any, profile_key: string, params: {Steal: boolean?}) -&gt; (Profile&lt;T&gt;?),
+	MessageAsync: (self: any, profile_key: string, message: JSONAcceptable) -&gt; (boolean),
+	GetAsync: (self: any, profile_key: string, version: string?) -&gt; (Profile&lt;T&gt;?),
+	VersionQuery: (self: any, profile_key: string, sort_direction: Enum.SortDirection?, min_date: DateTime | number | nil, max_date: DateTime | number | nil) -&gt; (VersionQuery&lt;T&gt;),
+	RemoveAsync: (self: any, profile_key: string) -&gt; (boolean),
+}
+
+export type ProfileStore&lt;T&gt; = {
+	Mock: ProfileStoreStandard&lt;T&gt;,
+} &amp; ProfileStoreStandard&lt;T&gt;
+
+type ConstantName = "AUTO_SAVE_PERIOD" | "LOAD_REPEAT_PERIOD" | "FIRST_LOAD_REPEAT" | "SESSION_STEAL"
+| "ASSUME_DEAD" | "START_SESSION_TIMEOUT" | "CRITICAL_STATE_ERROR_COUNT" | "CRITICAL_STATE_ERROR_EXPIRE"
+| "CRITICAL_STATE_EXPIRE" | "MAX_MESSAGE_QUEUE"
+
+export type ProfileStoreModule = {
+	IsClosing: boolean,
+	IsCriticalState: boolean,
+	OnError: {Connect: (self: any, listener: (message: string, store_name: string, profile_key: string) -&gt; ()) -&gt; ({Disconnect: (self: any) -&gt; ()})},
+	OnOverwrite: {Connect: (self: any, listener: (store_name: string, profile_key: string) -&gt; ()) -&gt; ({Disconnect: (self: any) -&gt; ()})},
+	OnCriticalToggle: {Connect: (self: any, listener: (is_critical: boolean) -&gt; ()) -&gt; ({Disconnect: (self: any) -&gt; ()})},
+	DataStoreState: "NotReady" | "NoInternet" | "NoAccess" | "Access",
+	New: &lt;T&gt;(store_name: string, template: (T &amp; JSONAcceptable)?) -&gt; (ProfileStore&lt;T&gt;),
+	SetConstant: (name: ConstantName, value: number) -&gt; ()
+}
+
+local Profile = {}
+Profile.__index = Profile
+
+function Profile.New(raw_data, key_info, profile_store, key, is_mock, session_token)
+
+	local data = raw_data.Data or {}
+	local session = raw_data.MetaData and raw_data.MetaData.ActiveSession or nil
+
+	local global_updates = raw_data.GlobalUpdates and raw_data.GlobalUpdates[2] or {}
+	local received_global_updates = {}
+
+	for _, update in ipairs(global_updates) do
+		received_global_updates[update[1]] = true
+	end
+
+	local self = {
+
+		Data = data,
+		LastSavedData = DeepCopyTable(data),
+
+		FirstSessionTime = raw_data.MetaData and raw_data.MetaData.ProfileCreateTime or 0,
+		SessionLoadCount = raw_data.MetaData and raw_data.MetaData.SessionLoadCount or 0,
+		Session = session and {PlaceId = session[1], JobId = session[2]},
+
+		RobloxMetaData = raw_data.RobloxMetaData or {},
+		UserIds = raw_data.UserIds or {},
+		KeyInfo = key_info,
+
+		OnAfterSave = Signal.New(),
+		OnSave = Signal.New(),
+		OnLastSave = Signal.New(),
+		OnSessionEnd = Signal.New(),
+
+		ProfileStore = profile_store,
+		Key = key,
+
+		load_timestamp = os.clock(),
+		is_mock = is_mock,
+		session_token = session_token or "",
+		load_index = raw_data.MetaData and raw_data.MetaData.SessionLoadCount or 0,
+		locked_global_updates = {},
+		received_global_updates = received_global_updates,
+		message_handlers = {},
+		global_updates = global_updates,
+
+	}
+	setmetatable(self, Profile)
+
+	return self
+
+end
+
+function Profile:IsActive()
+	return ActiveSessionCheck[self.session_token] == self
+end
+
+function Profile:Reconcile()
+	ReconcileTable(self.Data, self.ProfileStore.template)
+end
+
+function Profile:EndSession()
+	if self:IsActive() == true then
+		task.spawn(SaveProfileAsync, self, true, nil, "Manual") -- Call save function in a new thread with release_from_session = true
+	end
+end
+
+function Profile:AddUserId(user_id) -- Associates user_id with profile (GDPR compliance)
+
+	if type(user_id) ~= "number" or user_id % 1 ~= 0 then
+		warn(`[{script.Name}]: Invalid UserId argument for :AddUserId() ({tostring(user_id)}); Traceback:\n` .. debug.traceback())
+		return
+	end
+
+	if user_id &lt; 0 and self.is_mock ~= true and DataStoreState == "Access" then
+		return -- Avoid giving real Roblox APIs negative UserId's
+	end
+
+	if table.find(self.UserIds, user_id) == nil then
+		table.insert(self.UserIds, user_id)
+	end
+
+end
+
+function Profile:RemoveUserId(user_id) -- Removes user_id association with profile (safe function)
+
+	if type(user_id) ~= "number" or user_id % 1 ~= 0 then
+		warn(`[{script.Name}]: Invalid UserId argument for :RemoveUserId() ({tostring(user_id)}); Traceback:\n` .. debug.traceback())
+		return
+	end
+
+	local index = table.find(self.UserIds, user_id)
+
+	if index ~= nil then
+		table.remove(self.UserIds, index)
+	end
+
+end
+
+function Profile:SetAsync() -- Saves the profile to the DataStore and removes the session lock
+
+	if self.view_mode ~= true then
+		error(`[{script.Name}]: :SetAsync() can only be used in view mode`)
+	end
+
+	SaveProfileAsync(self, nil, true)
+
+end
+
+function Profile:MessageHandler(fn)
+
+	if type(fn) ~= "function" then
+		error(`[{script.Name}]: fn argument is not a function`)
+	end
+
+	if self.view_mode ~= true and self:IsActive() ~= true then
+		return -- Don't process messages if the profile session was ended
+	end
+
+	local locked_updates = self.locked_global_updates
+	table.insert(self.message_handlers, fn)
+
+	for _, update in ipairs(self.global_updates) do
+
+		local index = update[1]
+		local update_data = update[#update] -- Backwards compatibility with ProfileService
+
+		if locked_updates[index] ~= true then
+
+			local processed_callback = function()
+				locked_updates[index] = true
+			end
+			
+			local send_update_data = DeepCopyTable(update_data)
+
+			task.spawn(fn, send_update_data, processed_callback)
+
+		end
+
+	end
+
+end
+
+function Profile:Save()
+	
+	if self.view_mode == true then
+		error(`[{script.Name}]: Can't save profile in view mode; Should you be calling :SetAsync() instead?`)
+	end
+	
+	if self:IsActive() == false then
+		warn(`[{script.Name}]: Attempted saving an inactive profile (STORE:{self.ProfileStore.Name}; KEY:{self.Key});`
+			.. ` Traceback:\n` .. debug.traceback())
+		return
+	end
+	
+	-- Move the profile right behind the auto save index to delay the next auto save for it:
+	RemoveProfileFromAutoSave(self)
+	AddProfileToAutoSave(self)
+	
+	-- Perform save in new thread:
+	task.spawn(SaveProfileAsync, self)
+
+end
+
+local ProfileStore: ProfileStoreModule = {
+
+	IsClosing = false,
+	IsCriticalState = false,
+	OnError = OnError, -- (message, store_name, profile_key)
+	OnOverwrite = OnOverwrite, -- (store_name, profile_key)
+	OnCriticalToggle = Signal.New(), -- (is_critical)
+	DataStoreState = "NotReady", -- ("NotReady", "NoInternet", "NoAccess", "Access")
+
+}
+ProfileStore.__index = ProfileStore
+
+function ProfileStore.SetConstant(name, value)
+
+	if type(value) ~= "number" then
+		error(`[{script.Name}]: Invalid value type`)
+	end
+
+	if name == "AUTO_SAVE_PERIOD" then
+		AUTO_SAVE_PERIOD = value
+	elseif name == "LOAD_REPEAT_PERIOD" then
+		LOAD_REPEAT_PERIOD = value
+	elseif name == "FIRST_LOAD_REPEAT" then
+		FIRST_LOAD_REPEAT = value
+	elseif name == "SESSION_STEAL" then
+		SESSION_STEAL = value
+	elseif name == "ASSUME_DEAD" then
+		ASSUME_DEAD = value
+	elseif name == "START_SESSION_TIMEOUT" then
+		START_SESSION_TIMEOUT = value
+	elseif name == "CRITICAL_STATE_ERROR_COUNT" then
+		CRITICAL_STATE_ERROR_COUNT = value
+	elseif name == "CRITICAL_STATE_ERROR_EXPIRE" then
+		CRITICAL_STATE_ERROR_EXPIRE = value
+	elseif name == "CRITICAL_STATE_EXPIRE" then
+		CRITICAL_STATE_EXPIRE = value
+	elseif name == "MAX_MESSAGE_QUEUE" then
+		MAX_MESSAGE_QUEUE = value
+	else
+		error(`[{script.Name}]: Invalid constant name was provided`)
+	end
+
+end
+
+function ProfileStore.Test()
+	return {
+		ActiveSessionCheck = ActiveSessionCheck,
+		AutoSaveList = AutoSaveList,
+		ActiveProfileLoadJobs = ActiveProfileLoadJobs,
+		ActiveProfileSaveJobs = ActiveProfileSaveJobs,
+		MockStore = MockStore,
+		UserMockStore = UserMockStore,
+		UpdateQueue = UpdateQueue,
+	}
+end
+
+function ProfileStore.New(store_name, template)
+
+	template = template or {}
+
+	if type(store_name) ~= "string" then
+		error(`[{script.Name}]: Invalid or missing "store_name"`)
+	elseif string.len(store_name) == 0 then
+		error(`[{script.Name}]: store_name cannot be an empty string`)
+	elseif string.len(store_name) &gt; 50 then
+		error(`[{script.Name}]: store_name is too long`)
+	end
+
+	if type(template) ~= "table" then
+		error(`[{script.Name}]: Invalid template argument`)
+	end
+
+	local self
+	self = {
+
+		Mock = {
+
+			Name = store_name,
+
+			StartSessionAsync = function(_, profile_key)
+				MockFlag = true
+				return self:StartSessionAsync(profile_key)
+			end,
+			MessageAsync = function(_, profile_key, message)
+				MockFlag = true
+				return self:MessageAsync(profile_key, message)
+			end,
+			GetAsync = function(_, profile_key, version)
+				MockFlag = true
+				return self:GetAsync(profile_key, version)
+			end,
+			VersionQuery = function(_, profile_key, sort_direction, min_date, max_date)
+				MockFlag = true
+				return self:VersionQuery(profile_key, sort_direction, min_date, max_date)
+			end,
+			RemoveAsync = function(_, profile_key)
+				MockFlag = true
+				return self:RemoveAsync(profile_key)
+			end
+		},
+
+		Name = store_name,
+
+		template = template,
+		data_store = nil,
+		load_jobs = {},
+		mock_load_jobs = {},
+		is_ready = true,
+
+	}
+	setmetatable(self, ProfileStore)
+
+	local options = Instance.new("DataStoreOptions")
+	options:SetExperimentalFeatures({v2 = true})
+
+	if DataStoreState == "NotReady" then
+
+		-- The module is not sure whether DataStores are accessible yet:
+
+		self.is_ready = false
+
+		task.spawn(function()
+
+			repeat task.wait() until DataStoreState ~= "NotReady"
+
+			if DataStoreState == "Access" then
+				self.data_store = DataStoreService:GetDataStore(store_name, nil, options)
+			end
+
+			self.is_ready = true
+
+		end)
+
+	elseif DataStoreState == "Access" then
+
+		self.data_store = DataStoreService:GetDataStore(store_name, nil, options)
+
+	end
+
+	return self
+
+end
+
+local function RobloxMessageSubscription(profile, unique_session_id)
+
+	local last_roblox_message = 0
+	
+	local roblox_message_subscription = MessagingService:SubscribeAsync("PS_" .. unique_session_id, function(message)
+		if type(message.Data) == "table" and message.Data.LoadCount == profile.SessionLoadCount then
+			-- High reaction rate, based on numPlayers × 10 DataStore budget as of writing
+			if os.clock() - last_roblox_message &gt; 6 then 
+				last_roblox_message = os.clock()
+				if profile:IsActive() == true then
+					if message.Data.EndSession == true then
+						SaveProfileAsync(profile, true, false, "External")
+					else
+						profile:Save()
+					end
+				end
+			end
+		end
+	end)
+
+	if profile:IsActive() == true then
+		profile.roblox_message_subscription = roblox_message_subscription
+	else
+		roblox_message_subscription:Disconnect()
+	end
+
+end
+
+function ProfileStore:StartSessionAsync(profile_key, params)
+
+	local is_mock = ReadMockFlag()
+
+	if type(profile_key) ~= "string" then
+		error(`[{script.Name}]: profile_key must be a string`)
+	elseif string.len(profile_key) == 0 then
+		error(`[{script.Name}]: Invalid profile_key`)
+	elseif string.len(profile_key) &gt; 50 then
+		error(`[{script.Name}]: profile_key is too long`)
+	end
+	
+	if params ~= nil and type(params) ~= "table" then
+		error(`[{script.Name}]: Invalid params`)
+	end
+	
+	params = params or {}
+
+	if ProfileStore.IsClosing == true then
+		return nil
+	end
+	
+	WaitForStoreReady(self)
+
+	local session_token = SessionToken(self.Name, profile_key, is_mock)
+
+	if ActiveSessionCheck[session_token] ~= nil then
+		error(`[{script.Name}]: Profile (STORE:{self.Name}; KEY:{profile_key}) is already loaded in this session`)
+	end
+
+	ActiveProfileLoadJobs = ActiveProfileLoadJobs + 1
+	
+	local is_user_cancel = false
+	
+	local function cancel_condition()
+		if is_user_cancel == false then
+			if params.Cancel ~= nil then
+				is_user_cancel = params.Cancel() == true
+			end
+			return is_user_cancel
+		end
+		return true
+	end
+	
+	local user_steal = params.Steal == true
+
+	local force_load_steps = 0 -- Session conflict handling values
+	local request_force_load = true
+	local steal_session = false
+
+	local start = os.clock()
+	local exp_backoff = 1
+
+	while ProfileStore.IsClosing == false and cancel_condition() == false do
+
+		-- Load profile:
+
+		-- SPECIAL CASE - If StartSessionAsync is called for the same key again before another StartSessionAsync finishes,
+		-- grab the DataStore return for the new call. The early call will return nil. This is supposed to retain
+		-- expected and efficient behavior in cases where a player would quickly rejoin the same server.
+
+		LoadIndex += 1
+		local load_id = LoadIndex
+		local profile_load_jobs = is_mock == true and self.mock_load_jobs or self.load_jobs
+		local profile_load_job = profile_load_jobs[profile_key] -- {load_id, {loaded_data, key_info} or nil}
+
+		local loaded_data, key_info
+		local unique_session_id = HttpService:GenerateGUID(false)
+
+		if profile_load_job ~= nil then
+
+			profile_load_job[1] = load_id -- Steal load job
+			while profile_load_job[2] == nil do -- Wait for job to finish
+				task.wait()
+			end
+			if profile_load_job[1] == load_id then -- Load job hasn't been double-stolen
+				loaded_data, key_info = table.unpack(profile_load_job[2])
+				profile_load_jobs[profile_key] = nil
+			else
+				ActiveProfileLoadJobs = ActiveProfileLoadJobs - 1
+				return nil
+			end
+
+		else
+
+			profile_load_job = {load_id, nil}
+			profile_load_jobs[profile_key] = profile_load_job
+
+			profile_load_job[2] = table.pack(UpdateAsync(
+				self,
+				profile_key,
+				{
+					ExistingProfileHandle = function(latest_data)
+
+						if ProfileStore.IsClosing == true or cancel_condition() == true then
+							return
+						end
+
+						local active_session = latest_data.MetaData.ActiveSession
+						local force_load_session = latest_data.MetaData.ForceLoadSession
+
+						if active_session == nil then
+							latest_data.MetaData.ActiveSession = {PlaceId, JobId, unique_session_id}
+							latest_data.MetaData.ForceLoadSession = nil
+						elseif type(active_session) == "table" then
+							if IsThisSession(active_session) == false then
+								local last_update = latest_data.MetaData.LastUpdate
+								if last_update ~= nil then
+									if os.time() - last_update &gt; ASSUME_DEAD then
+										latest_data.MetaData.ActiveSession = {PlaceId, JobId, unique_session_id}
+										latest_data.MetaData.ForceLoadSession = nil
+										return
+									end
+								end
+								if steal_session == true or user_steal == true then
+									local force_load_interrupted = if force_load_session ~= nil then not IsThisSession(force_load_session) else true
+									if force_load_interrupted == false or user_steal == true then
+										latest_data.MetaData.ActiveSession = {PlaceId, JobId, unique_session_id}
+										latest_data.MetaData.ForceLoadSession = nil
+									end
+								elseif request_force_load == true then
+									latest_data.MetaData.ForceLoadSession = {PlaceId, JobId}
+								end
+							else
+								latest_data.MetaData.ForceLoadSession = nil
+							end
+						end
+
+					end,
+					MissingProfileHandle = function(latest_data)
+						
+						local is_cancel = ProfileStore.IsClosing == true or cancel_condition() == true
+
+						latest_data.Data = DeepCopyTable(self.template)
+						latest_data.MetaData = {
+							ProfileCreateTime = os.time(),
+							SessionLoadCount = 0,
+							ActiveSession = if is_cancel == false then {PlaceId, JobId, unique_session_id} else nil,
+							ForceLoadSession = nil,
+							MetaTags = {}, -- Backwards compatibility with ProfileService
+						}
+
+					end,
+					EditProfile = function(latest_data)
+
+						if ProfileStore.IsClosing == true or cancel_condition() == true then
+							return
+						end
+
+						local active_session = latest_data.MetaData.ActiveSession
+						if active_session ~= nil and IsThisSession(active_session) == true then
+							latest_data.MetaData.SessionLoadCount = latest_data.MetaData.SessionLoadCount + 1
+							latest_data.MetaData.LastUpdate = os.time()
+						end
+
+					end,
+				},
+				is_mock
+				))
+			if profile_load_job[1] == load_id then -- Load job hasn't been stolen
+				loaded_data, key_info = table.unpack(profile_load_job[2])
+				profile_load_jobs[profile_key] = nil
+			else
+				ActiveProfileLoadJobs = ActiveProfileLoadJobs - 1
+				return nil -- Load job stolen
+			end
+		end
+
+		-- Handle load_data:
+
+		if loaded_data ~= nil and key_info ~= nil then
+			local active_session = loaded_data.MetaData.ActiveSession
+			if type(active_session) == "table" then
+
+				if IsThisSession(active_session) == true then
+
+					-- Profile is now taken by this session:
+
+					local profile = Profile.New(loaded_data, key_info, self, profile_key, is_mock, session_token)
+					AddProfileToAutoSave(profile)
+					
+					if is_mock ~= true and DataStoreState == "Access" then
+						
+						-- Use MessagingService to quickly detect session conflicts and resolve them quickly:
+						task.spawn(RobloxMessageSubscription, profile, unique_session_id) -- Blocking prevention
+						
+					end
+
+					if ProfileStore.IsClosing == true or cancel_condition() == true then
+						-- The server has initiated a shutdown by the time this profile was loaded
+						SaveProfileAsync(profile, true) -- Release profile and yield until the DataStore call is finished
+						profile = nil -- Don't return the profile object
+					end
+
+					ActiveProfileLoadJobs = ActiveProfileLoadJobs - 1
+					return profile
+
+				else
+					
+					if ProfileStore.IsClosing == true or cancel_condition() == true then
+						ActiveProfileLoadJobs = ActiveProfileLoadJobs - 1
+						return nil
+					end
+
+					-- Profile is taken by some other session:
+
+					local force_load_session = loaded_data.MetaData.ForceLoadSession
+					local force_load_interrupted = if force_load_session ~= nil then not IsThisSession(force_load_session) else true
+
+					if force_load_interrupted == false then
+
+						if request_force_load == false then
+							force_load_steps = force_load_steps + 1
+							if force_load_steps &gt;= math.ceil(SESSION_STEAL / LOAD_REPEAT_PERIOD) then
+								steal_session = true
+							end
+						end
+						
+						-- Request the remote server to end its session:
+						if type(active_session[3]) == "string" then
+							local session_load_count = loaded_data.MetaData.SessionLoadCount or 0
+							task.spawn(MessagingService.PublishAsync, MessagingService, "PS_" .. active_session[3], {LoadCount = session_load_count, EndSession = true})
+						end
+						
+						-- Attempt to load the profile again after a delay
+						local wait_until = os.clock() + if request_force_load == true then FIRST_LOAD_REPEAT else LOAD_REPEAT_PERIOD
+						repeat task.wait() until os.clock() &gt;= wait_until or ProfileStore.IsClosing == true
+
+					else
+						-- Another session tried to load this profile:
+						ActiveProfileLoadJobs = ActiveProfileLoadJobs - 1
+						return nil
+					end
+
+					request_force_load = false -- Only request a force load once
+
+				end
+
+			else
+				ActiveProfileLoadJobs = ActiveProfileLoadJobs - 1
+				return nil -- In this scenario it is likely that this server started shutting down
+			end
+		else
+			
+			-- A DataStore call has likely ended in an error:
+
+			local default_timeout = false
+
+			if params.Cancel == nil then
+				default_timeout = os.clock() - start &gt;= START_SESSION_TIMEOUT
+			end
+			
+			if default_timeout == true or ProfileStore.IsClosing == true or cancel_condition() == true then
+				ActiveProfileLoadJobs = ActiveProfileLoadJobs - 1
+				return nil
+			end
+			
+			task.wait(exp_backoff)  -- Repeat the call shortly
+			exp_backoff = math.min(20, exp_backoff * 2)
+			
+		end
+
+	end
+
+	ActiveProfileLoadJobs = ActiveProfileLoadJobs - 1
+	return nil -- Game started shutting down or the request was cancelled - don't return the profile
+
+end
+
+function ProfileStore:MessageAsync(profile_key, message)
+
+	local is_mock = ReadMockFlag()
+
+	if type(profile_key) ~= "string" then
+		error(`[{script.Name}]: profile_key must be a string`)
+	elseif string.len(profile_key) == 0 then
+		error(`[{script.Name}]: Invalid profile_key`)
+	elseif string.len(profile_key) &gt; 50 then
+		error(`[{script.Name}]: profile_key is too long`)
+	end
+
+	if type(message) ~= "table" then
+		error(`[{script.Name}]: message must be a table`)
+	end
+
+	if ProfileStore.IsClosing == true then
+		return false
+	end
+
+	WaitForStoreReady(self)
+
+	local exp_backoff = 1
+
+	while ProfileStore.IsClosing == false do
+
+		-- Updating profile:
+
+		local loaded_data = UpdateAsync(
+			self,
+			profile_key,
+			{
+				ExistingProfileHandle = nil,
+				MissingProfileHandle = nil,
+				EditProfile = function(latest_data)
+
+					local global_updates = latest_data.GlobalUpdates
+					local update_list = global_updates[2]
+					--{
+					--	update_index,
+					--	{
+					--		{update_index, data}, ...
+					--	},
+					--},
+
+					global_updates[1] += 1
+					table.insert(update_list, {global_updates[1], message})
+
+					-- Clearing queue if above limit:
+
+					while #update_list &gt; MAX_MESSAGE_QUEUE do
+						table.remove(update_list, 1)
+					end
+
+				end,
+			},
+			is_mock
+		)
+
+		if loaded_data ~= nil then
+			
+			local session_token = SessionToken(self.Name, profile_key, is_mock)
+			
+			local profile = ActiveSessionCheck[session_token]
+			
+			if profile ~= nil then
+				
+				-- The message was sent to a profile that is active in this server:
+				profile:Save()
+				
+			else
+				
+				local meta_data = loaded_data.MetaData or {}
+				local active_session = meta_data.ActiveSession
+				local session_load_count = meta_data.SessionLoadCount or 0
+				
+				if type(active_session) == "table" and type(active_session[3]) == "string" then
+					-- Request the remote server to auto-save sooner and receive the message:
+					task.spawn(MessagingService.PublishAsync, MessagingService, "PS_" .. active_session[3], {LoadCount = session_load_count})
+				end
+				
+			end
+
+			return true
+
+		else
+
+			task.wait(exp_backoff) -- A DataStore call has likely ended in an error - repeat the call shortly
+			exp_backoff = math.min(20, exp_backoff * 2)
+
+		end
+
+	end
+
+	return false
+
+end
+
+function ProfileStore:GetAsync(profile_key, version)
+
+	local is_mock = ReadMockFlag()
+
+	if type(profile_key) ~= "string" then
+		error(`[{script.Name}]: profile_key must be a string`)
+	elseif string.len(profile_key) == 0 then
+		error(`[{script.Name}]: Invalid profile_key`)
+	elseif string.len(profile_key) &gt; 50 then
+		error(`[{script.Name}]: profile_key is too long`)
+	end
+
+	if ProfileStore.IsClosing == true then
+		return nil
+	end
+
+	WaitForStoreReady(self)
+
+	if version ~= nil and (is_mock or DataStoreState ~= "Access") then
+		return nil -- No version support in mock mode
+	end
+
+	local exp_backoff = 1
+
+	while ProfileStore.IsClosing == false do
+
+		-- Load profile:
+
+		local loaded_data, key_info = UpdateAsync(
+			self,
+			profile_key,
+			{
+				ExistingProfileHandle = nil,
+				MissingProfileHandle = function(latest_data)
+
+					latest_data.Data = DeepCopyTable(self.template)
+					latest_data.MetaData = {
+						ProfileCreateTime = os.time(),
+						SessionLoadCount = 0,
+						ActiveSession = nil,
+						ForceLoadSession = nil,
+						MetaTags = {}, -- Backwards compatibility with ProfileService
+					}
+
+				end,
+				EditProfile = nil,
+			},
+			is_mock,
+			true, -- Use :GetAsync()
+			version -- DataStore key version
+		)
+
+		-- Handle load_data:
+
+		if loaded_data ~= nil then
+
+			if key_info == nil then
+				return nil -- Load was successful, but the key was empty - return no profile object
+			end
+
+			local profile = Profile.New(loaded_data, key_info, self, profile_key, is_mock)
+			profile.view_mode = true
+
+			return profile
+
+		else
+
+			task.wait(exp_backoff) -- A DataStore call has likely ended in an error - repeat the call shortly
+			exp_backoff = math.min(20, exp_backoff * 2)
+
+		end
+
+	end
+
+	return nil -- Game started shutting down - don't return the profile
+
+end
+
+function ProfileStore:RemoveAsync(profile_key)
+
+	local is_mock = ReadMockFlag()
+
+	if type(profile_key) ~= "string" or string.len(profile_key) == 0 then
+		error(`[{script.Name}]: Invalid profile_key`)
+	end
+
+	if ProfileStore.IsClosing == true then
+		return false
+	end
+
+	WaitForStoreReady(self)
+
+	local wipe_status = false
+	
+	local next_in_queue = WaitInUpdateQueue(SessionToken(self.Name, profile_key, is_mock))
+
+	if is_mock == true then -- Used when the profile is accessed through ProfileStore.Mock
+
+		local mock_data_store = UserMockStore[self.Name]
+
+		if mock_data_store ~= nil then
+			mock_data_store[profile_key] = nil
+			if next(mock_data_store) == nil then
+				UserMockStore[self.Name] = nil
+			end
+		end
+
+		wipe_status = true
+		task.wait() -- Simulate API call yield
+
+	elseif DataStoreState ~= "Access" then -- Used when API access is disabled
+
+		local mock_data_store = MockStore[self.Name]
+
+		if mock_data_store ~= nil then
+			mock_data_store[profile_key] = nil
+			if next(mock_data_store) == nil then
+				MockStore[self.Name] = nil
+			end
+		end
+
+		wipe_status = true
+		task.wait() -- Simulate API call yield
+
+	else -- Live DataStore
+
+		wipe_status = pcall(function()
+			self.data_store:RemoveAsync(profile_key)
+		end)
+
+	end
+	
+	next_in_queue()
+
+	return wipe_status
+
+end
+
+local ProfileVersionQuery = {}
+ProfileVersionQuery.__index = ProfileVersionQuery
+
+function ProfileVersionQuery.New(profile_store, profile_key, sort_direction, min_date, max_date, is_mock)
+
+	local self = {
+		profile_store = profile_store,
+		profile_key = profile_key,
+		sort_direction = sort_direction,
+		min_date = min_date,
+		max_date = max_date,
+
+		query_pages = nil,
+		query_index = 0,
+		query_failure = false,
+
+		is_query_yielded = false,
+		query_queue = {},
+
+		is_mock = is_mock,
+	}
+	setmetatable(self, ProfileVersionQuery)
+
+	return self
+
+end
+
+function MoveVersionQueryQueue(self) -- Hidden ProfileVersionQuery method
+	while #self.query_queue &gt; 0 do
+
+		local queue_entry = table.remove(self.query_queue, 1)
+
+		task.spawn(queue_entry)
+
+		if self.is_query_yielded == true then
+			break
+		end
+
+	end
+end
+
+local VersionQueryNextAsyncStackingFlag = false
+local WarnAboutVersionQueryOnce = false
+
+function ProfileVersionQuery:NextAsync()
+
+	local is_stacking = VersionQueryNextAsyncStackingFlag == true
+	VersionQueryNextAsyncStackingFlag = false
+
+	WaitForStoreReady(self.profile_store)
+
+	if ProfileStore.IsClosing == true then
+		return nil -- Silently fail :NextAsync() requests
+	end
+
+	if self.is_mock == true or DataStoreState ~= "Access" then
+		if IsStudio == true and WarnAboutVersionQueryOnce == false then
+			WarnAboutVersionQueryOnce = true
+			warn(`[{script.Name}]: :VersionQuery() is not supported in mock mode!`)
+		end
+		return nil -- Silently fail :NextAsync() requests
+	end
+
+	local profile
+	local is_finished = false
+
+	local function query_job()
+
+		if self.query_failure == true then
+			is_finished = true
+			return
+		end
+
+		-- First "next" call loads version pages:
+
+		if self.query_pages == nil then
+
+			self.is_query_yielded = true
+
+			task.spawn(function()
+				VersionQueryNextAsyncStackingFlag = true
+				profile = self:NextAsync()
+				is_finished = true
+			end)
+
+			local list_success, error_message = pcall(function()
+				self.query_pages = self.profile_store.data_store:ListVersionsAsync(
+					self.profile_key,
+					self.sort_direction,
+					self.min_date,
+					self.max_date
+				)
+				self.query_index = 0
+			end)
+
+			if list_success == false or self.query_pages == nil then
+				warn(`[{script.Name}]: Version query fail - {tostring(error_message)}`)
+				self.query_failure = true
+			end
+
+			self.is_query_yielded = false
+
+			MoveVersionQueryQueue(self)
+
+			return
+
+		end
+
+		local current_page = self.query_pages:GetCurrentPage()
+		local next_item = current_page[self.query_index + 1]
+
+		-- No more entries:
+
+		if self.query_pages.IsFinished == true and next_item == nil then
+			is_finished = true
+			return
+		end
+
+		-- Load next page when this page is over:
+
+		if next_item == nil then
+
+			self.is_query_yielded = true
+			task.spawn(function()
+				VersionQueryNextAsyncStackingFlag = true
+				profile = self:NextAsync()
+				is_finished = true
+			end)
+
+			local success, error_message = pcall(function()
+				self.query_pages:AdvanceToNextPageAsync()
+				self.query_index = 0
+			end)
+
+			if success == false or #self.query_pages:GetCurrentPage() == 0 then
+				self.query_failure = true
+			end
+
+			self.is_query_yielded = false
+			MoveVersionQueryQueue(self)
+
+			return
+
+		end
+
+		-- Next page item:
+
+		self.query_index += 1
+		profile = self.profile_store:GetAsync(self.profile_key, next_item.Version)
+		is_finished = true
+
+	end
+
+	if self.is_query_yielded == false then
+		query_job()
+	else
+		if is_stacking == true then
+			table.insert(self.query_queue, 1, query_job)
+		else
+			table.insert(self.query_queue, query_job)
+		end
+	end
+
+	while is_finished == false do
+		task.wait()
+	end
+
+	return profile
+
+end
+
+function ProfileStore:VersionQuery(profile_key, sort_direction, min_date, max_date)
+
+	local is_mock = ReadMockFlag()
+
+	if type(profile_key) ~= "string" or string.len(profile_key) == 0 then
+		error(`[{script.Name}]: Invalid profile_key`)
+	end
+
+	-- Type check:
+
+	if sort_direction ~= nil and (typeof(sort_direction) ~= "EnumItem"
+		or sort_direction.EnumType ~= Enum.SortDirection) then
+		error(`[{script.Name}]: Invalid sort_direction ({tostring(sort_direction)})`)
+	end
+
+	if min_date ~= nil and typeof(min_date) ~= "DateTime" and typeof(min_date) ~= "number" then
+		error(`[{script.Name}]: Invalid min_date ({tostring(min_date)})`)
+	end
+
+	if max_date ~= nil and typeof(max_date) ~= "DateTime" and typeof(max_date) ~= "number" then
+		error(`[{script.Name}]: Invalid max_date ({tostring(max_date)})`)
+	end
+
+	min_date = typeof(min_date) == "DateTime" and min_date.UnixTimestampMillis or min_date
+	max_date = typeof(max_date) == "DateTime" and max_date.UnixTimestampMillis or max_date
+
+	return ProfileVersionQuery.New(self, profile_key, sort_direction, min_date, max_date, is_mock)
+
+end
+
+-- DataStore API access check:
+
+if IsStudio == true then
+
+	task.spawn(function()
+
+		local new_state = "NoAccess"
+
+		local status, message = pcall(function()
+			-- This will error if current instance has no Studio API access:
+			DataStoreService:GetDataStore("____PS"):SetAsync("____PS", os.time())
+		end)
+
+		local no_internet_access = status == false and string.find(message, "ConnectFail", 1, true) ~= nil
+
+		if no_internet_access == true then
+			warn(`[{script.Name}]: No internet access - check your network connection`)
+		end
+
+		if status == false and
+			(string.find(message, "403", 1, true) ~= nil or -- Cannot write to DataStore from studio if API access is not enabled
+				string.find(message, "must publish", 1, true) ~= nil or -- Game must be published to access live keys
+				no_internet_access == true) then -- No internet access
+
+			new_state = if no_internet_access == true then "NoInternet" else "NoAccess"
+			print(`[{script.Name}]: Roblox API services unavailable - data will not be saved`)
+		else
+			new_state = "Access"
+			print(`[{script.Name}]: Roblox API services available - data will be saved`)
+		end
+
+		DataStoreState = new_state
+		ProfileStore.DataStoreState = new_state
+
+	end)
+
+else
+	
+	DataStoreState = "Access"
+	ProfileStore.DataStoreState = "Access"
+	
+end
+
+-- Update loop:
+
+RunService.Heartbeat:Connect(function()
+
+	-- Auto saving:
+
+	local auto_save_list_length = #AutoSaveList
+	if auto_save_list_length &gt; 0 then
+		local auto_save_index_speed = AUTO_SAVE_PERIOD / auto_save_list_length
+		local os_clock = os.clock()
+		while os_clock - LastAutoSave &gt; auto_save_index_speed do
+			LastAutoSave = LastAutoSave + auto_save_index_speed
+			local profile = AutoSaveList[AutoSaveIndex]
+			if os_clock - profile.load_timestamp &lt; AUTO_SAVE_PERIOD / 2 then
+				-- This profile is freshly loaded - auto saving immediately is not necessary:
+				profile = nil
+				for _ = 1, auto_save_list_length - 1 do
+					-- Move auto save index to the right:
+					AutoSaveIndex = AutoSaveIndex + 1
+					if AutoSaveIndex &gt; auto_save_list_length then
+						AutoSaveIndex = 1
+					end
+					profile = AutoSaveList[AutoSaveIndex]
+					if os_clock - profile.load_timestamp &gt;= AUTO_SAVE_PERIOD / 2 then
+						break
+					else
+						profile = nil
+					end
+				end
+			end
+			-- Move auto save index to the right:
+			AutoSaveIndex = AutoSaveIndex + 1
+			if AutoSaveIndex &gt; auto_save_list_length then
+				AutoSaveIndex = 1
+			end
+			-- Perform save call:
+			if profile ~= nil then
+				task.spawn(SaveProfileAsync, profile) -- Auto save profile in new thread
+			end
+		end
+	end
+
+	-- Critical state handling:
+
+	if ProfileStore.IsCriticalState == false then
+		if #IssueQueue &gt;= CRITICAL_STATE_ERROR_COUNT then
+			ProfileStore.IsCriticalState = true
+			ProfileStore.OnCriticalToggle:Fire(true)
+			CriticalStateStart = os.clock()
+			warn(`[{script.Name}]: Entered critical state`)
+		end
+	else
+		if #IssueQueue &gt;= CRITICAL_STATE_ERROR_COUNT then
+			CriticalStateStart = os.clock()
+		elseif os.clock() - CriticalStateStart &gt; CRITICAL_STATE_EXPIRE then
+			ProfileStore.IsCriticalState = false
+			ProfileStore.OnCriticalToggle:Fire(false)
+			warn(`[{script.Name}]: Critical state ended`)
+		end
+	end
+
+	-- Issue queue:
+
+	while true do
+		local issue_time = IssueQueue[1]
+		if issue_time == nil then
+			break
+		elseif os.clock() - issue_time &gt; CRITICAL_STATE_ERROR_EXPIRE then
+			table.remove(IssueQueue, 1)
+		else
+			break
+		end
+	end
+
+end)
+
+-- Release all loaded profiles when the server is shutting down:
+
+task.spawn(function()
+
+	while DataStoreState == "NotReady" do
+		task.wait()
+	end
+
+	if DataStoreState ~= "Access" then
+
+		game:BindToClose(function()
+			ProfileStore.IsClosing = true
+			task.wait() -- Mock shutdown delay
+		end)
+
+		return -- Don't wait for profiles to properly save in mock mode so studio could end the simulation faster
+
+	end
+
+	game:BindToClose(function()
+
+		ProfileStore.IsClosing = true
+
+		-- Release all active profiles:
+		-- (Clone AutoSaveList to a new table because AutoSaveList changes when profiles are released)
+
+		local on_close_save_job_count = 0
+		local active_profiles = {}
+		for index, profile in ipairs(AutoSaveList) do
+			active_profiles[index] = profile
+		end
+
+		-- Release the profiles; Releasing profiles can trigger listeners that release other profiles, so check active state:
+		for _, profile in ipairs(active_profiles) do
+			if profile:IsActive() == true then
+				on_close_save_job_count = on_close_save_job_count + 1
+				task.spawn(function() -- Save profile on new thread
+					SaveProfileAsync(profile, true, nil, "Shutdown")
+					on_close_save_job_count = on_close_save_job_count - 1
+				end)
+			end
+		end
+
+		-- Yield until all active profile jobs are finished:
+		while on_close_save_job_count &gt; 0 or ActiveProfileLoadJobs &gt; 0 or ActiveProfileSaveJobs &gt; 0 do
+			task.wait()
+		end
+
+		return -- We're done!
+
+	end)
+
+end)
+
+return ProfileStore</ProtectedString>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+  </Item>
+  <Item class="StarterPlayer" referent="RBX39">
+    <Properties>
+      <string name="Name">StarterPlayer</string>
+    </Properties>
+    <Item class="StarterPlayerScripts" referent="RBX40">
+      <Properties>
+        <string name="Name">StarterPlayerScripts</string>
+      </Properties>
+      <Item class="Folder" referent="RBX41">
+        <Properties>
+          <string name="Name">Client</string>
+        </Properties>
+        <Item class="LocalScript" referent="RBX42">
+          <Properties>
+            <string name="Name">ClientMain</string>
+            <ProtectedString name="Source">--!strict
+local Shared = game:GetService("ReplicatedStorage"):WaitForChild("Shared")
+local Comm = require(Shared.Modules.Comm)
+local Constants = require(Shared.Constants)
+local Config = require(Shared.Config.AntiCheatConfig)
+local UI = require(script.Parent.Controllers.UIController)
+local cleanup = UI.Start()
+Comm.Send(Config.HandshakeRemote, tostring(Constants.ProtocolVersion))
+script.Destroying:Connect(function(): () cleanup:Destroy() end)
+</ProtectedString>
+            <bool name="Disabled">false</bool>
+          </Properties>
+        </Item>
+        <Item class="Folder" referent="RBX43">
+          <Properties>
+            <string name="Name">Controllers</string>
+          </Properties>
+          <Item class="ModuleScript" referent="RBX44">
+            <Properties>
+              <string name="Name">UIController</string>
+              <ProtectedString name="Source">--!strict
+-- Purpose: responsive prototype HUD, shop, inventory, quests and collection.
+-- Dependencies: Comm, Janitor, declarative Element factory. No authoritative client writes.
+local HttpService = game:GetService("HttpService")
+local Players = game:GetService("Players")
+local Shared = game:GetService("ReplicatedStorage").Shared
+local Config = require(Shared.Config.EconomyConfig)
+local Plants = require(Shared.Config.PlantConfig)
+local SeasonConfig = require(Shared.Config.SeasonConfig)
+local RemoteConfig = require(Shared.Config.AntiCheatConfig)
+local Comm = require(Shared.Modules.Comm)
+local Janitor = require(Shared.Modules.Janitor)
+local Element = require(script.Parent.Parent.UI.Components.Element)
+local UI = {}
+local green = Color3.fromRGB(99, 210, 142)
+local dark = Color3.fromRGB(23, 39, 35)
+function UI.Start(): Janitor.Janitor
+	local cleanup, contentCleanup = Janitor.new(), Janitor.new()
+	cleanup:Add(function(): () contentCleanup:Destroy() end)
+	local player = Players.LocalPlayer
+	local gui = Element.New("ScreenGui", { Name = "MysticGarden", ResetOnSpawn = false, ZIndexBehavior = Enum.ZIndexBehavior.Sibling }, player:WaitForChild("PlayerGui"))
+	cleanup:Add(gui)
+	local panel = Element.New("Frame", { Size = UDim2.new(0.94, 0, 0.68, 0), Position = UDim2.new(0.03, 0, 0.3, 0), BackgroundColor3 = dark, BackgroundTransparency = 0.08 }, gui)
+	Element.New("UICorner", { CornerRadius = UDim.new(0, 16) }, panel)
+	Element.New("UISizeConstraint", { MaxSize = Vector2.new(900, 620), MinSize = Vector2.new(280, 220) }, panel)
+	local header = Element.New("TextLabel", { Size = UDim2.new(1, -24, 0, 36), Position = UDim2.fromOffset(12, 4), BackgroundTransparency = 1, Text = "MYSTIC GARDEN • Memuat data…", TextColor3 = green, TextSize = 18, Font = Enum.Font.GothamBold, TextXAlignment = Enum.TextXAlignment.Left }, panel) :: TextLabel
+	local message = Element.New("TextLabel", { Size = UDim2.new(1, -24, 0, 46), Position = UDim2.fromOffset(12, 40), BackgroundTransparency = 1, Text = "Klaim kebun → beli Happy Sprout → tanam → panen → jual.", TextColor3 = Color3.new(1, 1, 1), TextSize = 14, TextWrapped = true }, panel) :: TextLabel
+	local tabs = Element.New("ScrollingFrame", { Size = UDim2.new(1, -24, 0, 46), Position = UDim2.fromOffset(12, 90), BackgroundTransparency = 1, AutomaticCanvasSize = Enum.AutomaticSize.X, CanvasSize = UDim2.new(), ScrollBarThickness = 2, ScrollingDirection = Enum.ScrollingDirection.X }, panel)
+	Element.New("UIListLayout", { FillDirection = Enum.FillDirection.Horizontal, Padding = UDim.new(0, 6), SortOrder = Enum.SortOrder.LayoutOrder }, tabs)
+	local content = Element.New("ScrollingFrame", { Size = UDim2.new(1, -24, 1, -150), Position = UDim2.fromOffset(12, 142), BackgroundTransparency = 1, AutomaticCanvasSize = Enum.AutomaticSize.Y, CanvasSize = UDim2.new(), ScrollBarThickness = 6 }, panel) :: ScrollingFrame
+	Element.New("UIListLayout", { Padding = UDim.new(0, 6), SortOrder = Enum.SortOrder.LayoutOrder }, content)
+	-- Server-owned snapshot, dynamic shape is confined to this view-only boundary.
+	local snapshot: any = nil
+	local lastView = ""
+	local tab, selected = "Kebun", "sprout"
+	local function send(command: string): () Comm.Send(RemoteConfig.ActionRemote, command) end
+	local function clear(): ()
+		contentCleanup:Cleanup()
+		for _, child in content:GetChildren() do if child:IsA("GuiObject") then child:Destroy() end end
+	end
+	local function label(text: string): ()
+		Element.New("TextLabel", { Size = UDim2.new(1, -12, 0, 46), BackgroundTransparency = 1, Text = text, TextColor3 = Color3.new(1, 1, 1), TextSize = 14, TextWrapped = true, TextXAlignment = Enum.TextXAlignment.Left }, content)
+	end
+	local function button(text: string, callback: () -&gt; (), parent: Instance?, permanent: boolean?): ()
+		local object = Element.New("TextButton", { Size = if parent then UDim2.fromOffset(110, 42) else UDim2.new(1, -12, 0, 46), BackgroundColor3 = green, TextColor3 = dark, Text = text, TextSize = 14, TextWrapped = true, Font = Enum.Font.GothamMedium, AutoButtonColor = true }, parent or content) :: TextButton
+		Element.New("UICorner", { CornerRadius = UDim.new(0, 8) }, object)
+		local janitor = if permanent then cleanup else contentCleanup
+		janitor:Add(object.Activated:Connect(callback))
+	end
+	local render: () -&gt; ()
+	render = function(): ()
+		clear()
+		if not snapshot then label("Data sedang dimuat. Jika gagal, masuk ulang; data tidak direset.") return end
+		if tab == "Kebun" then
+			button(if snapshot.PlotId then "Kembali ke kebun #" .. snapshot.PlotId else "Klaim kebun saya", function(): () send(if snapshot.PlotId then "Go" else "Claim") end)
+			label("Benih dipilih: " .. Plants[selected].Name .. ". Pilih benih melalui tab Toko.")
+			for slot = 1, Config.Slots do
+				local growing = snapshot.Slots[tostring(slot)]
+				if growing then
+					local plant = Plants[growing.PlantId]
+					local seconds = math.max(0, growing.PlantedAt + plant.GrowthTime - os.time())
+					button("Slot " .. slot .. " • " .. plant.Name .. (if seconds == 0 then " • PANEN" else " • Tumbuh"), function(): () send("Harvest:" .. slot) end)
+				else
+					button("Slot " .. slot .. " • Tanam " .. Plants[selected].Name .. " (" .. (snapshot.Seeds[selected] or 0) .. " benih)", function(): () send("Plant:" .. selected .. ":" .. slot) end)
+				end
+			end
+		elseif tab == "Toko" then
+			local ids: { string } = {}
+			for id in Plants do table.insert(ids, id) end
+			table.sort(ids, function(a: string, b: string): boolean return Plants[a].Price &lt; Plants[b].Price end)
+			for _, id in ids do
+				local definition = Plants[id]
+				button(definition.Name .. " • " .. definition.Price .. " Coins • " .. definition.GrowthTime .. "dtk • Pilih &amp; beli", function(): () selected = id send("Buy:" .. id) end)
+				if (snapshot.Seeds[id] or 0) &gt; 0 then
+					button("Pilih " .. definition.Name .. " (tanpa membeli)", function(): () selected = id tab = "Kebun" render() end)
+				end
+			end
+		elseif tab == "Tas" then
+			label("Jual panen untuk Coins, atau simpan 3 tanaman sama untuk fusion (" .. Config.FusionCost .. " Coins).")
+			if #snapshot.Crops == 0 then label("Tas panen masih kosong.") end
+			for _, crop in snapshot.Crops do
+				local definition = Plants[crop.PlantId]
+				if definition then
+					local value = definition.SellValue * (if crop.Mutant then Config.MutationMultiplier else 1)
+					button((if crop.Mutant then "MUTANT " else "") .. definition.Name .. " • Jual +" .. value, function(): () send("Sell:" .. crop.Id) end)
+				end
+			end
+			for id, definition in Plants do
+				local count = 0
+				for _, crop in snapshot.Crops do if crop.PlantId == id and not crop.Mutant then count += 1 end end
+				if count &gt;= 3 then button("Fuse 3x " .. definition.Name, function(): () send("Fuse:" .. id) end) end
+			end
+		elseif tab == "Misi" then
+			button("Ambil hadiah harian • Streak " .. snapshot.Streak, function(): () send("Daily") end)
+			for name, target in { Harvest = Config.QuestHarvest, Steal = Config.QuestSteal, Fuse = Config.QuestFuse } do
+				if name == "Steal" and not Config.EnableSteal then continue end
+				button(name .. " " .. (snapshot.Quests[name] or 0) .. "/" .. target .. (if snapshot.QuestClaims[name] then " • Sudah diklaim" else " • Klaim hadiah"), function(): () send("Quest:" .. name) end)
+			end
+			label("XP season: " .. snapshot.XP .. " • " .. SeasonConfig.XPPerTier .. " XP per tier")
+			for tier = 1, math.min(SeasonConfig.Tiers, math.floor(snapshot.XP / SeasonConfig.XPPerTier)) do
+				if not snapshot.SeasonClaims[tostring(tier)] then button("Klaim season tier " .. tier, function(): () send("Season:" .. tier) end) end
+			end
+		elseif tab == "Koleksi" then
+			for id, definition in Plants do label(if snapshot.Collection[id] then "✓ " .. definition.Name .. " • " .. definition.Rarity else "? Belum ditemukan • " .. definition.Rarity) end
+		else
+			label("1. Klaim kebun. 2. Beli Happy Sprout di Toko. 3. Dekati petak, pilih slot untuk menanam. 4. Tunggu 10 detik. 5. Panen, lalu jual di Tas.")
+			label("Tanaman tetap tumbuh saat Anda keluar. Coins hanya didapat setelah panen dijual. Fusion menghasilkan mutant bernilai jual x2.")
+			label("Siklus malam tersedia. Pencurian, trading, guild, auction, dan pembelian Robux belum dibuka pada build ini.")
+			button("Lewati panduan", function(): () send("Tutorial") end)
+		end
+	end
+	for _, name in { "Kebun", "Toko", "Tas", "Misi", "Koleksi", "Bantuan" } do
+		button(name, function(): () tab = name content.CanvasPosition = Vector2.zero render() end, tabs, true)
+	end
+	cleanup:Add(Comm.Listen(RemoteConfig.NoticeRemote, function(payload: unknown): ()
+		if typeof(payload) ~= "table" then return end
+		local notice = payload :: { [string]: unknown }
+		if typeof(notice.Message) == "string" then message.Text = notice.Message end
+	end))
+	cleanup:Add(Comm.Listen(RemoteConfig.StateRemote, function(payload: unknown): ()
+		if typeof(payload) ~= "table" then return end
+		snapshot = payload
+		header.Text = "MYSTIC GARDEN • " .. snapshot.Coins .. " Coins • " .. snapshot.Gems .. " Gems • " .. (if snapshot.Night then "Malam " else "Siang ") .. snapshot.Remaining .. "dtk" .. (if snapshot.Persistent then "" else " • DATA UJI (tidak disimpan)")
+		local ready = {}
+		for slot = 1, Config.Slots do
+			local growing = snapshot.Slots[tostring(slot)]
+			ready[slot] = growing ~= nil and os.time() &gt;= growing.PlantedAt + Plants[growing.PlantId].GrowthTime
+		end
+		local view = HttpService:JSONEncode({ snapshot.Seeds, snapshot.Crops, snapshot.Slots,
+			snapshot.Collection, snapshot.PlotId or 0, snapshot.Quests, snapshot.QuestClaims,
+			snapshot.XP, snapshot.SeasonClaims, snapshot.Streak, ready })
+		if view ~= lastView then lastView = view render() end
+	end))
+	local toggle = Element.New("TextButton", { Size = UDim2.fromOffset(160, 42), Position = UDim2.fromOffset(12, 12), Text = "Buka/tutup kebun", BackgroundColor3 = green, TextColor3 = dark, TextSize = 14 }, gui) :: TextButton
+	cleanup:Add(toggle.Activated:Connect(function(): () panel.Visible = not panel.Visible end))
+	render()
+	return cleanup
+end
+return UI
+</ProtectedString>
+            </Properties>
+          </Item>
+        </Item>
+        <Item class="Folder" referent="RBX45">
+          <Properties>
+            <string name="Name">Input</string>
+          </Properties>
+        </Item>
+        <Item class="Folder" referent="RBX46">
+          <Properties>
+            <string name="Name">UI</string>
+          </Properties>
+          <Item class="Folder" referent="RBX47">
+            <Properties>
+              <string name="Name">Components</string>
+            </Properties>
+            <Item class="ModuleScript" referent="RBX48">
+              <Properties>
+                <string name="Name">Element</string>
+                <ProtectedString name="Source">--!strict
+-- Small declarative UI factory. Replacement with Fusion is tracked in phase 10.
+local Element = {}
+-- Roblox property bags are heterogeneous; dynamic assignment stays at this UI boundary.
+function Element.New(className: string, properties: { [string]: any }, parent: Instance?): Instance
+	local object = Instance.new(className)
+	for key, value in properties do (object :: any)[key] = value end
+	object.Parent = parent
+	return object
+end
+return Element
+</ProtectedString>
+              </Properties>
+            </Item>
+          </Item>
+          <Item class="Folder" referent="RBX49">
+            <Properties>
+              <string name="Name">Screens</string>
+            </Properties>
+          </Item>
+          <Item class="Folder" referent="RBX50">
+            <Properties>
+              <string name="Name">Stories</string>
+            </Properties>
+          </Item>
+        </Item>
+      </Item>
+    </Item>
+  </Item>
+  <Item class="Workspace" referent="RBX51">
+    <Properties>
+      <string name="Name">Workspace</string>
+      <bool name="StreamingEnabled">true</bool>
+      <int name="StreamingTargetRadius">350</int>
+    </Properties>
+    <Item class="Part" referent="RBX52">
+      <Properties>
+        <string name="Name">Ground</string>
+        <bool name="Anchored">true</bool>
+        <Vector3 name="size">
+          <X>512</X>
+          <Y>1</Y>
+          <Z>512</Z>
+        </Vector3>
+        <CoordinateFrame name="CFrame">
+          <X>0</X>
+          <Y>-1</Y>
+          <Z>0</Z>
+          <R00>1</R00>
+          <R01>0</R01>
+          <R02>0</R02>
+          <R10>0</R10>
+          <R11>1</R11>
+          <R12>0</R12>
+          <R20>0</R20>
+          <R21>0</R21>
+          <R22>1</R22>
+        </CoordinateFrame>
+        <Color3uint8 name="Color3uint8">4691020</Color3uint8>
+      </Properties>
+    </Item>
+    <Item class="SpawnLocation" referent="RBX53">
+      <Properties>
+        <string name="Name">Spawn</string>
+        <bool name="Anchored">true</bool>
+        <Vector3 name="size">
+          <X>12</X>
+          <Y>1</Y>
+          <Z>12</Z>
+        </Vector3>
+        <CoordinateFrame name="CFrame">
+          <X>0</X>
+          <Y>1</Y>
+          <Z>0</Z>
+          <R00>1</R00>
+          <R01>0</R01>
+          <R02>0</R02>
+          <R10>0</R10>
+          <R11>1</R11>
+          <R12>0</R12>
+          <R20>0</R20>
+          <R21>0</R21>
+          <R22>1</R22>
+        </CoordinateFrame>
+        <bool name="Neutral">true</bool>
+      </Properties>
+    </Item>
+  </Item>
+  <Item class="Lighting" referent="RBX54">
+    <Properties>
+      <string name="Name">Lighting</string>
+      <float name="ClockTime">12</float>
+      <float name="Brightness">2</float>
+    </Properties>
+  </Item>
+  <Item class="SoundService" referent="RBX55">
+    <Properties>
+      <string name="Name">SoundService</string>
+      <bool name="RespectFilteringEnabled">true</bool>
+    </Properties>
+  </Item>
+</roblox>
