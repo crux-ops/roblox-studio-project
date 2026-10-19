@@ -1,0 +1,78 @@
+{
+  "name": "MysticGarden",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "Shared": {
+        "$path": "src/shared"
+      }
+    },
+    "ServerScriptService": {
+      "Server": {
+        "$path": "src/server"
+      }
+    },
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "Client": {
+          "$path": "src/client"
+        }
+      }
+    },
+    "Workspace": {
+      "$properties": {
+        "StreamingEnabled": true,
+        "StreamingTargetRadius": 350
+      },
+      "Ground": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            512,
+            1,
+            512
+          ],
+          "Position": [
+            0,
+            -1,
+            0
+          ],
+          "Color": [
+            0.28,
+            0.58,
+            0.3
+          ]
+        }
+      },
+      "Spawn": {
+        "$className": "SpawnLocation",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            12,
+            1,
+            12
+          ],
+          "Position": [
+            0,
+            1,
+            0
+          ],
+          "Neutral": true
+        }
+      }
+    },
+    "Lighting": {
+      "$properties": {
+        "ClockTime": 12,
+        "Brightness": 2
+      }
+    },
+    "SoundService": {
+      "$properties": {
+        "RespectFilteringEnabled": true
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+.tools/
+Packages/
+ServerPackages/
+build/
+*.rbxl
+*.rbxlx
+*.rbxm
+*.rbxmx
+
+__pycache__/
