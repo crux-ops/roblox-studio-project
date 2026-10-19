@@ -28,6 +28,8 @@ class ScaffoldTests(unittest.TestCase):
 
     def test_luau_strict(self):
         for path in (ROOT / 'src').rglob('*.lua'):
+            if 'Vendor' in path.parts:
+                continue
             self.assertTrue(path.read_text().startswith('--!strict\n'), str(path))
 
     def test_ten_unique_sample_plants(self):

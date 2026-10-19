@@ -1,0 +1,8 @@
+{
+  "name": "mystic-garden-checks",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "node tests/luau-tests.mjs && python3 -m unittest discover -s tests -v" },
+  "devDependencies": { "luau-web": "1.5.1" }
+}

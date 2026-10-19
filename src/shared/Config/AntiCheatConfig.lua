@@ -2,7 +2,11 @@
 return table.freeze({
 	RemoteFolder = "GardenRemotes",
 	HandshakeRemote = "ClientReady",
-	BucketCapacity = 3,
-	RefillPerSecond = 0.2,
-	MaxStringLength = 64,
+	ActionRemote = "GardenAction",
+	StateRemote = "GardenState",
+	NoticeRemote = "GardenNotice",
+	BucketCapacity = 12,
+	RefillPerSecond = 4,
+	MaxStringLength = 96,
+	EvidenceLimit = 200,
 })

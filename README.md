@@ -1,66 +1,91 @@
 # Grow & Steal: Mystic Garden Tycoon
 
-Fondasi proyek Rojo, Luau strict — **Fase 0, belum game siap publish**.
-Isi README lama diganti; riwayat Git tetap dipertahankan.
+**Build prototipe kebun, belum siap publish.** Pengguna telah menyetujui pengerjaan
+lintas fase tanpa meminta konfirmasi setiap tahap. Status jujur per fase ada di
+[`docs/PROGRESS.md`](docs/PROGRESS.md); tidak semua fitur master prompt selesai.
 
-## Instalasi
+## Untuk pengguna Windows yang tidak menulis kode
 
-Prasyarat: Roblox Studio, plugin Rojo yang sesuai, Aftman, Python 3.11+ untuk pemeriksaan statis.
+1. Unduh file **MysticGarden.rbxlx** yang dilampirkan agen.
+2. Di Roblox Studio pilih **File → Open from File…**, lalu pilih file itu.
+3. Klik **Play** (segitiga biru).
+4. Di panel kebun klik **Klaim kebun saya**. Karakter dipindahkan ke petak Anda.
+5. Buka **Toko**, beli **Happy Sprout** seharga 10 Coins.
+6. Kembali ke **Kebun**, klik slot kosong untuk menanam.
+7. Setelah 10 detik, klik **PANEN**. Buka **Tas** lalu klik hasil panen untuk menjual.
+
+Jika tulisan **DATA UJI (tidak disimpan)** muncul, Anda tetap bisa mencoba gameplay,
+tetapi progres sesi itu tidak bertahan. Untuk menguji penyimpanan sungguhan,
+publish ke experience **pengujian terpisah**, kemudian aktifkan **Enable Studio
+Access to API Services** melalui pengaturan Security. Nama/menu Studio dapat
+berbeda sesuai versi. Jangan mengaktifkan akses Studio ke data game produksi.
+Masuk ulang dan periksa Coins, benih, panen, dan tanaman tumbuh tetap ada.
+
+File `.rbxlx` diekspor dari source yang sama dengan proyek; tidak memerlukan
+Rojo/Wally untuk dibuka. Format XML dan kesamaan semua source telah dites;
+**pembukaan aktual dan Play di Studio belum diuji di lingkungan agen**. Jika muncul
+error, buka panel Output dan kirim screenshot pesan merahnya. Jangan publish
+build ini untuk pemain umum atau mengaktifkan pembayaran dahulu.
+
+## Yang tersedia dalam source
+
+- 30 petak, masing-masing 8 slot, dengan model tanaman sederhana.
+- 10 jenis benih; starter 100 Coins; beli → tanam → tumbuh → panen → jual.
+- Pertumbuhan memakai waktu server, termasuk waktu saat pemain offline.
+  Ini bukan pendapatan Coins otomatis saat offline.
+- Fusion 3 panen biasa menjadi 1 mutant bernilai jual x2 (biaya 100 Coins).
+- Album penemuan, hadiah harian 7 hari, misi panen/fusion, free season 50 tier.
+- Siklus 25 menit siang / 5 menit malam berbasis UTC.
+- ProfileStore asli dengan session lock, autosave 60 detik, pemeriksaan schema,
+  ledger server dan leaderstats sebagai tampilan saja.
+- Remote allowlist, grammar/ID validation, token bucket, distance/ownership checks,
+  log evidence terbatas dan fallback pemeriksaan kecepatan horizontal.
+- UI prototipe dengan tombol sentuh, header Coins/Gems dan timer.
+
+Pencurian, trading, auction, guild, premium pass, Robux, Cmdr, 150 tanaman dan
+optimasi beban besar **belum tersedia**. `EnableSteal=false` dan monetisasi disabled
+secara sengaja. Tidak ada tombol yang menjanjikan barang berbayar atau transaksi
+lintas pemain yang belum aman. Quest steal juga disembunyikan pada build ini.
+
+## Untuk pengembang
+
+```sh
+npm ci
+npm test
+python3 tools/build_place.py
+```
+
+`npm test` mengompilasi seluruh source Luau lewat WASM, menjalankan logika layanan
+produksi dengan service doubles, lalu tes Python untuk struktur/config/XML.
+Ini bukan Luau type analysis, TestEZ dalam Studio, tes jaringan Roblox, atau tes
+DataStore sungguhan. Detail skenario di `docs/STUDIO_TESTS.md`.
+
+### Alternatif Rojo
 
 ```sh
 aftman install
-wally install
 rojo build default.project.json -o build/MysticGarden.rbxlx
 rojo serve default.project.json
 ```
 
-Buat direktori `build` sebelum build bila belum ada. Sambungkan plugin Rojo Studio
-ke `localhost:34872`, lalu Sync. Alternatif: buka hasil build di Studio.
-Rojo adalah protokol sinkronisasi Studio, **bukan halaman web/game browser**.
+Buat folder `build` jika belum ada. Sambungkan plugin Rojo Studio ke
+`localhost:34872`. Rojo bukan halaman web. Download CLI Rojo/Wally pada lingkungan
+agen masih diblokir host redirect GitHub. Exporter Python disediakan sebagai
+jalur alternatif terbatas untuk pohon proyek ini, bukan pengganti Rojo umum.
 
-Dependensi Wally dideklarasikan dengan versi tetap; keenam versi telah dicek
-ada di wally-index. `wally.lock` belum dihasilkan karena instalasi tool terblokir.
-Packages tidak dibutuhkan bootstrap Fase 0: Signal dan Janitor lokal adalah
-utilitas kecil mandiri, bukan salinan library upstream. Integrasi package ke
-pohon Rojo dilakukan setelah `wally install` sukses agar path tidak menggagalkan
-bootstrap. ProfileStore dan sistem ekonomi baru masuk Fase 1.
+`wally.toml` mendeklarasikan dependensi target. Hanya ProfileStore yang telah
+benar-benar diintegrasikan, melalui source upstream yang dipin dan disertakan
+beserta lisensinya di `src/server/Vendor`. Lihat `docs/DEPENDENCIES.md`. Janitor,
+Signal dan UI factory lokal masih digunakan; migrasi Fusion/Janitor upstream,
+Promise, Cmdr dan lockfile Wally belum selesai. Tidak ada klaim seluruh tech stack
+master prompt sudah terpasang.
 
-## Pemeriksaan
+## File penting
 
-```sh
-python3 -m unittest discover -s tests -v
-git diff --check
-```
-
-Pemeriksaan tersebut hanya memvalidasi struktur/konfigurasi, bukan eksekusi Luau.
-
-### Smoke test Studio (wajib sebelum menyatakan Fase 0 selesai)
-
-1. Jalankan `rojo serve`, sambungkan Studio, dan Sync.
-2. Play: karakter muncul di tanah hijau. Output menampilkan pesan server/client ready.
-3. Pada server Explorer, Player memiliki atribut `GardenReady = true`.
-4. Start Server dengan dua client: keduanya memiliki atribut tersebut.
-5. Payload `ClientReady` selain string versi `1`, argumen ekstra, atau string
-   lebih dari 64 karakter harus diabaikan. Tidak ada reward/currency remote.
-6. Spam remote: bucket awal 3 request, isi ulang 0.2/detik; tidak ada error server.
-7. Stop, Play ulang, pastikan tidak ada binding ganda atau error timeout.
-
-## Status validasi lingkungan agen
-
-- Pemeriksaan statis tersedia, lihat `tests/test_scaffold.py`.
-- Download Rojo/Wally gagal: jaringan memblokir host redirect
-  `release-assets.githubusercontent.com` dari rilis GitHub.
-- Karena itu **wally install, rojo build, rojo serve, dan Studio Play belum tervalidasi**.
-- Tidak ada klaim siap publish, persistensi, 150 tanaman, atau anti-cheat penuh.
-- Lanjut Fase 1 hanya setelah gerbang Fase 0 selesai dan pengguna mengonfirmasi.
-
-## Struktur
-
-- `src/shared`: config 10 tanaman, types, Comm, Signal, Janitor, constants.
-- `src/server`: bootstrap server dan direktori layanan/anti-cheat/remotes.
-- `src/client`: handshake client dan direktori controller/UI/input.
-- `assets`, `tests`: aset mendatang dan pemeriksaan scaffold.
-- Direktori kosong ditahan dengan `.gitkeep`; tidak ada service setengah jadi.
-
-Seluruh angka balancing tanaman ada di `PlantConfig.lua`; limit komunikasi
-ada di `AntiCheatConfig.lua`. Folder layanan fase lanjutan sengaja belum diisi.
+- `src/shared/Config`: balancing, season, limit remote dan feature gates.
+- `src/server/Services`: data, ekonomi, petak, tanaman, fusion, quest, season, world.
+- `src/server/AntiCheat`: grammar remote, evidence dan fallback movement.
+- `src/client/Controllers/UIController.lua`: UI prototipe.
+- `SECURITY_AUDIT.md`: batas jaminan dan matriks validasi.
+- `BALANCING_SHEET.md`: nilai tanaman dan reward.
+- `docs/PROGRESS.md`: pekerjaan selesai/sebagian/belum dimulai.
